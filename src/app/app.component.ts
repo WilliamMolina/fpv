@@ -3,6 +3,7 @@ import {MatFormFieldControl} from '@angular/material/form-field';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -12,16 +13,19 @@ import {map, startWith} from 'rxjs/operators';
 
 export class AppComponent implements OnInit {
   myControl = new FormControl();
-  options: string[] = ['Delhi', 'Mumbai', 'Banglore'];
+  ciudades: any = [];
   filteredOptions: Observable<string[]>;
   navegacion:any[] = [];
   @ViewChildren(MatFormFieldControl) inputs: QueryList<any>;
-  constructor(private renderer: Renderer) {}
-  ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+  constructor(private renderer: Renderer, private apiService: ApiService) {}
+  ngOnInit() {    
+    this.apiService.getNews().subscribe((data)=>{
+      this.ciudades = data;
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    });
   }
 
   ngAfterViewInit() {
@@ -36,6 +40,7 @@ export class AppComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    return this.ciudades.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
 }
+

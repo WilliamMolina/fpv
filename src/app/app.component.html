@@ -3,9 +3,9 @@
 </mat-form-field>
 <mat-form-field>
   <input tab-directive type="text" placeholder="Enter City" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
-  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-      {{option}}
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onKeydown($event, 1)">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
+      {{option.nombre}}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
