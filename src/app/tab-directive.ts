@@ -13,5 +13,11 @@ export class TabDirective{
         this.autoTrigger.writeValue(this.autoTrigger.activeOption.value)
       }
   }
+  @HostListener('keydown.shift.tab', ['$event.target'])onBlurBack()
+  {
+    if (this.autoTrigger.activeOption) {
+        this.autoTrigger.writeValue(this.autoTrigger.activeOption.value)
+      }
+  }
   
 }
