@@ -1,8 +1,36 @@
 <mat-form-field>
-  <input matInput placeholder="Input" (keydown.enter)="onKeydown($event, 0)">
+  <input matInput placeholder="Usuario" (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
 </mat-form-field>
 <mat-form-field>
-  <input tab-directive type="text" placeholder="Enter City" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="username">
+</mat-form-field>
+<mat-radio-group aria-label="Select an option">
+  <mat-radio-button value="1" checked>Fecha del Fondo</mat-radio-button>
+  <mat-radio-button value="2">Día Siguiente</mat-radio-button>
+  <mat-radio-button value="2">Fecha Futura</mat-radio-button>
+</mat-radio-group>
+<mat-form-field>
+  <input type="date" matInput placeholder="Fecha" (keydown.enter)="onKeydown($event, 2)" [(ngModel)]="fecha">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input tab-directive type="text" placeholder="oficina" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onKeydown($event, 1)">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
+      {{option.nombre}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+<mat-divider></mat-divider>
+<mat-form-field>
+  <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<mat-form-field>
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input tab-directive type="text" placeholder="Encargo" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
   <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onKeydown($event, 1)">
     <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
       {{option.nombre}}
@@ -10,7 +38,76 @@
   </mat-autocomplete>
 </mat-form-field>
 <mat-form-field>
-  <input matInput placeholder="Input" (keydown.enter)="onKeydown($event, 2)">
+  <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
 </mat-form-field>
-
+<mat-form-field>
+  <input matInput  disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<mat-form-field>
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<mat-form-field>
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<mat-form-field>
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input tab-directive type="text" placeholder="Tipo de Retiro" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onKeydown($event, 1)">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
+      {{option.nombre}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+<mat-form-field>
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<mat-form-field>
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<mat-form-field>
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<mat-form-field>
+  <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<mat-checkbox>Fondo Externo</mat-checkbox>
+<mat-form-field>
+  <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<mat-form-field>
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input tab-directive type="text" placeholder="Forma de Pago" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onKeydown($event, 1)">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
+      {{option.nombre}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+<mat-form-field>
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<mat-form-field>
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<mat-form-field>
+  <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+</mat-form-field>
 <router-outlet></router-outlet>

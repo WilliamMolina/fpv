@@ -12,6 +12,9 @@ import { ApiService } from './api.service';
 })
 
 export class AppComponent implements OnInit {
+  user: string = "KMEDINA";
+  username: string = "KAREN MEDINA"
+  fecha: Date = new Date();
   myControl = new FormControl();
   ciudades: any = [];
   filteredOptions: Observable<string[]>;
