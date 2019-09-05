@@ -7,7 +7,13 @@ export class TabDirective{
   observable: any;
   constructor(@Optional() private autoTrigger: MatAutocompleteTrigger) { }
 
-  @HostListener('keydown.tab', ['$event.target'])onBlur()
+  @HostListener('keydown.tab', ['$event.target']) onBlur()
+  {
+    if (this.autoTrigger.activeOption) {
+        this.autoTrigger.writeValue(this.autoTrigger.activeOption.value)
+      }
+  }
+  @HostListener('keydown.enter', ['$event.target'])onBlurEnter()
   {
     if (this.autoTrigger.activeOption) {
         this.autoTrigger.writeValue(this.autoTrigger.activeOption.value)

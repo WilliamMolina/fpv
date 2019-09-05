@@ -5,7 +5,7 @@
 
   <div class="column-section-one__user-input">
     <mat-form-field>
-    <input matInput placeholder="Usuario" (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+    <input matInput [navigation]="navegacion" placeholder="Usuario" [(ngModel)]="user">
   </mat-form-field>
   </div>
 
