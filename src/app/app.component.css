@@ -58,7 +58,7 @@
 .forma-pago,
 .tipo-retiro,
 .section-one__user-inputs {
-  margin: 0 0 10px 0;
+  margin: 0 0 5px 0;
 }
 .column-fondo {
   flex-basis: calc(100% / 2);
