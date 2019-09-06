@@ -5,7 +5,7 @@
 
   <div class="column-section-one__user-input">
     <mat-form-field>
-    <input matInput [navigation]="navegacion" placeholder="Usuario" [(ngModel)]="user">
+    <input matInput navigation placeholder="Usuario" [(ngModel)]="user">
   </mat-form-field>
   </div>
 
@@ -27,14 +27,14 @@
 
     <div id="dateInput" class="column-section-one__user-input">
         <mat-form-field>
-          <input type="date" matInput placeholder="Fecha" (keydown.enter)="onKeydown($event, 2)" [(ngModel)]="fecha">
+          <input type="date" navigation matInput placeholder="Fecha" (keydown.enter)="onKeydown($event, 2)" [(ngModel)]="fecha">
         </mat-form-field>
       </div>
 </div>
   <div class="row section-one__office">
     <div class="column-oficina">
       <mat-form-field>
-        <input tab-directive type="text" placeholder="oficina" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
+        <input tab-directive navigation type="text" placeholder="oficina" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onKeydown($event, 1)">
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
             {{option.nombre}}
@@ -70,7 +70,7 @@
   <div class="row fondo">
     <div class="column-fondo">
       <mat-form-field class="globalPading">
-        <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+        <input matInput navigation (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
       </mat-form-field>
     </div>
     <div class="column-fondo">
@@ -82,7 +82,7 @@
   <div class="row encargado">
     <div class="column-encargado">
       <mat-form-field>
-            <input tab-directive type="text" placeholder="Encargo" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
+            <input tab-directive navigation type="text" placeholder="Encargo" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onKeydown($event, 1)">
               <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
                 {{option.nombre}}
