@@ -34,10 +34,10 @@
   <div class="row section-one__office">
     <div class="column-oficina">
       <mat-form-field>
-        <input tab-directive navigation type="text" placeholder="oficina" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onKeydown($event, 1)">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
-            {{option.nombre}}
+        <input tab-directive navigation type="text" placeholder="oficina" matInput [formControl]="myControl" [matAutocomplete]="auto"  [value]="oficina.codigo">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="select($event, option)" [value]="option.codigo">
+            {{option.codigo}}
           </mat-option>
           <!-- First section-END -->
         </mat-autocomplete>
@@ -45,13 +45,7 @@
     </div>
     <div class="column-oficina">
       <mat-form-field>
-        <input tab-directive type="text" placeholder="oficina" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onKeydown($event, 1)">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
-            {{option.nombre}}
-          </mat-option>
-          <!-- First section-END -->
-        </mat-autocomplete>
+        <input tab-directive disabled type="text" placeholder="oficina" matInput [formControl]="myControl" [value]="oficina.nombre">
       </mat-form-field>
     </div>
   </div>
@@ -70,34 +64,29 @@
   <div class="row fondo">
     <div class="column-fondo">
       <mat-form-field class="globalPading">
-        <input matInput navigation (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+        <input matInput navigation (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="fondo.codigo">
       </mat-form-field>
     </div>
     <div class="column-fondo">
       <mat-form-field class="globalPading">
-        <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+        <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="fondo.nombre">
       </mat-form-field>
     </div>
   </div>
   <div class="row encargado">
     <div class="column-encargado">
       <mat-form-field>
-            <input tab-directive navigation type="text" placeholder="Encargo" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onKeydown($event, 1)">
-              <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
-                {{option.nombre}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-    </div>
-    <div class="column-encargado">
-      <mat-form-field>
-        <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+            <input tab-directive navigation type="text" placeholder="Encargo" matInput [formControl]="encargoInput" [(ngModel)]="encargo.numero">
       </mat-form-field>
     </div>
     <div class="column-encargado">
       <mat-form-field>
-        <input matInput  disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+        <input matInput navigation (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="encargo.codigoVerificacion">
+      </mat-form-field>
+    </div>
+    <div class="column-encargado">
+      <mat-form-field>
+        <input matInput  disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="encargo.persona">
       </mat-form-field>
     </div>
   </div>
@@ -105,49 +94,44 @@
 <div class="row titular">
 <div class="column-titular">
     <mat-form-field>
-        <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+        <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="encargo.identificacion">
       </mat-form-field>
 </div>
 <div class="column-titular">
   <mat-form-field>
-    <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+    <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="encargo.nombre">
   </mat-form-field>
 </div>
 <div class="column-titular">
     <mat-form-field>
-        <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+        <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="encargo.codigoPlanInversion">
       </mat-form-field>
 </div>
 <div class="column-titular">
     <mat-form-field>
-        <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+        <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="encargo.nombrePlanInversion">
       </mat-form-field>
 </div>
 </div>
 <div class=" row tipo-retiro">
   <div class="column-tipoR">
     <mat-form-field>
-      <input tab-directive type="text" placeholder="Tipo de Retiro" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onKeydown($event, 1)">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
-          {{option.nombre}}
-        </mat-option>
-      </mat-autocomplete>
+      <input tab-directive type="text" placeholder="Tipo de Retiro" matInput [(ngModel)]="retiro.codigo">
     </mat-form-field>
   </div>
   <div class="column-tipoR">
   <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="retiro.nombre">
     </mat-form-field>
   </div>
   <div class="column-tipoR">
     <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="retiro.tipoMvto">
     </mat-form-field>
   </div>
   <div class="column-tipoR">
     <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="retiro.nombreMvto">
     </mat-form-field>
   </div>
 </div>
@@ -155,12 +139,12 @@
 <div class="row valor-retiro">
   <div class="column-valorR">
     <mat-form-field>
-      <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+      <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="valor">
     </mat-form-field>
   </div>
   <div class="column-valorR">
     <mat-form-field>
-      <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+      <input matInput placeholder="Nro Volante" (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="nroVolante">
     </mat-form-field>
   </div>
   <div class="column-valorR">
@@ -170,39 +154,35 @@
   </div>
   <div class="column-valorR">
     <mat-form-field>
-      <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+      <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="fondoExterno.nit">
     </mat-form-field>
   </div>
   <div class="column-valorR">
     <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="fondoExterno.nombre">
     </mat-form-field>
   </div>
 </div>
 <div class=" row forma-pago">
   <div class="column-formaP">
     <mat-form-field>
-      <input tab-directive type="text" placeholder="Forma de Pago" matInput [formControl]="myControl" [matAutocomplete]="auto" (keydown.enter)="onKeydown($event, 1)">
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onKeydown($event, 1)">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
-          {{option.nombre}}
-        </mat-option>
-      </mat-autocomplete>
+      <input tab-directive type="text" placeholder="Forma de Pago" matInput [(ngModel)]="formaPago.codigo" >
+
     </mat-form-field>
   </div>
   <div class="column-formaP">
     <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="formaPago.nombre">
     </mat-form-field>
   </div>
   <div class="column-formaP">
     <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="formaPago.operacionesGratis">
     </mat-form-field>
   </div>
   <div class="column-formaP">
     <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="condicionPensionado">
     </mat-form-field>
   </div>
 </div>
@@ -210,7 +190,7 @@
 <div class="row observaciones">
   <div class="column-observ">
     <mat-form-field>
-      <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="user">
+      <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="observaciones">
     </mat-form-field>
   </div>
 </div>

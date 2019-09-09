@@ -9,13 +9,13 @@
 }
 .column-section-one__user-input {
   flex-basis: calc(100% / 4);
-  background: rgba(0, 0, 0, 0.01);
+  
   border: 0.5px solid rgba(0, 0, 0, 0.03);
 }
 
 .column-oficina {
   flex-basis: calc(100% / 2);
-  background: rgba(0, 0, 0, 0.01);
+  
   border: 0.5px solid rgba(0, 0, 0, 0.03);
 }
 
@@ -62,29 +62,29 @@
 }
 .column-fondo {
   flex-basis: calc(100% / 2);
-  background: rgba(0, 0, 0, 0.01);
+  
   border: 0.5px solid rgba(0, 0, 0, 0.03);
 }
 .column-encargado {
   flex-basis: calc(100% / 3);
-  background: rgba(0, 0, 0, 0.01);
+  
   border: 0.5px solid rgba(0, 0, 0, 0.03);
 }
 .column-titular,
 .column-tipoR,
 .column-formaP {
   flex-basis: calc(100% / 4);
-  background: rgba(0, 0, 0, 0.01);
+  
   border: 0.5px solid rgba(0, 0, 0, 0.03);
 }
 
 .column-valorR {
   flex-basis: calc(100% / 5);
-  background: rgba(0, 0, 0, 0.01);
+  
   border: 0.5px solid rgba(0, 0, 0, 0.03);
 }
 .column-observ {
   flex-basis: 100%;
-  background: rgba(0, 0, 0, 0.01);
+  
   border: 0.5px solid rgba(0, 0, 0, 0.03);
 }
