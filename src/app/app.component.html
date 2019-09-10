@@ -5,17 +5,14 @@
 
   <div class="column-section-one__user-input">
     <mat-form-field>
-    <input matInput navigation placeholder="Usuario" [(ngModel)]="user">
+    <input class="code" matInput navigation placeholder="Usuario" [(ngModel)]="user">
+  </mat-form-field>
+  <mat-form-field class="name">
+    <input matInput disabled  [(ngModel)]="username">
   </mat-form-field>
   </div>
 
-  <div class="column-section-one__user-input">
-    <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="username">
-    </mat-form-field>
-  </div>
-
-  <div id="radiobtn" class="column-section-one__user-input">
+  <div id="radiobtn" class="column-section-one__user-radio">
     <div>
       <mat-radio-group aria-label="Select an option">
         <mat-radio-button class="individualRB" value="1" checked>Fecha del Fondo</mat-radio-button>
@@ -25,16 +22,16 @@
     </div>
     </div>
 
-    <div id="dateInput" class="column-section-one__user-input">
+    <div id="dateInput" class="column-section-one__user-radio">
         <mat-form-field>
-          <input type="date" navigation matInput placeholder="Fecha" (keydown.enter)="onKeydown($event, 2)" [(ngModel)]="fecha">
+          <input type="date" matInput placeholder="Fecha" [ngModel]="fecha |date:'yyyy-MM-dd'">
         </mat-form-field>
       </div>
 </div>
   <div class="row section-one__office">
     <div class="column-oficina">
       <mat-form-field>
-        <input tab-directive navigation type="text" placeholder="oficina" matInput [formControl]="myControl" [matAutocomplete]="auto"  [value]="oficina.codigo">
+        <input  class="code" tab-directive navigation type="text" placeholder="oficina" matInput [formControl]="myControl" [matAutocomplete]="auto"  [value]="oficina.codigo">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="select($event, option)" [value]="option.codigo">
             {{option.codigo}}
@@ -42,51 +39,36 @@
           <!-- First section-END -->
         </mat-autocomplete>
       </mat-form-field>
-    </div>
-    <div class="column-oficina">
-      <mat-form-field>
-        <input tab-directive disabled type="text" placeholder="oficina" matInput [formControl]="myControl" [value]="oficina.nombre">
+      <mat-form-field class="name">
+        <input tab-directive disabled type="text" matInput  [value]="oficina.nombre">
       </mat-form-field>
     </div>
   </div>
-  <div class="row section-one__date-aplications-input">
-
-  </div>
-<div class="row section-one__date-input">
-
-</div>
 <!-- <br> -->
 </div>
 <h1 class="intermedial-title">Identificación de la operación</h1>
-
 <!-- Second section -->
 <div class="container__section-two">
   <div class="row fondo">
     <div class="column-fondo">
       <mat-form-field class="globalPading">
-        <input matInput navigation (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="fondo.codigo">
+        <input matInput  class="code" navigation  [(ngModel)]="fondo.codigo">
       </mat-form-field>
-    </div>
-    <div class="column-fondo">
-      <mat-form-field class="globalPading">
-        <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="fondo.nombre">
+      <mat-form-field class="globalPading name-fondo">
+        <input matInput disabled  [(ngModel)]="fondo.nombre">
       </mat-form-field>
     </div>
   </div>
   <div class="row encargado">
     <div class="column-encargado">
       <mat-form-field>
-            <input tab-directive navigation type="text" placeholder="Encargo" matInput [formControl]="encargoInput" [(ngModel)]="encargo.numero">
+            <input class="code" tab-directive navigation type="text" placeholder="Encargo" matInput [(ngModel)]="encargo.numero">
       </mat-form-field>
-    </div>
-    <div class="column-encargado">
-      <mat-form-field>
-        <input matInput navigation (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="encargo.codigoVerificacion">
+      <mat-form-field class="verification">
+        <input matInput navigation  [(ngModel)]="encargo.codigoVerificacion">
       </mat-form-field>
-    </div>
-    <div class="column-encargado">
-      <mat-form-field>
-        <input matInput  disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="encargo.persona">
+      <mat-form-field class="persona">
+        <input matInput  disabled  [(ngModel)]="encargo.persona">
       </mat-form-field>
     </div>
   </div>
@@ -94,44 +76,32 @@
 <div class="row titular">
 <div class="column-titular">
     <mat-form-field>
-        <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="encargo.identificacion">
+        <input  class="code" matInput placeholder="Titular" disabled  [(ngModel)]="encargo.identificacion">
       </mat-form-field>
-</div>
-<div class="column-titular">
-  <mat-form-field>
-    <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="encargo.nombre">
+  <mat-form-field class="name-fondo">
+    <input matInput disabled  [(ngModel)]="encargo.nombre">
   </mat-form-field>
-</div>
-<div class="column-titular">
-    <mat-form-field>
-        <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="encargo.codigoPlanInversion">
+    <mat-form-field class="plan-inversion">
+        <input matInput placeholder="Plan de Inversión" disabled  [(ngModel)]="encargo.codigoPlanInversion">
       </mat-form-field>
-</div>
-<div class="column-titular">
-    <mat-form-field>
-        <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="encargo.nombrePlanInversion">
+    <mat-form-field class="nombre-plan">
+        <input matInput disabled  [(ngModel)]="encargo.nombrePlanInversion">
       </mat-form-field>
 </div>
 </div>
 <div class=" row tipo-retiro">
   <div class="column-tipoR">
     <mat-form-field>
-      <input tab-directive type="text" placeholder="Tipo de Retiro" matInput [(ngModel)]="retiro.codigo">
+      <input class="code" navigation tab-directive type="text" placeholder="Tipo de Retiro" matInput [(ngModel)]="retiro.codigo">
     </mat-form-field>
-  </div>
-  <div class="column-tipoR">
-  <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="retiro.nombre">
+  <mat-form-field class="name-fondo">
+      <input matInput disabled  [(ngModel)]="retiro.nombre">
     </mat-form-field>
-  </div>
-  <div class="column-tipoR">
-    <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="retiro.tipoMvto">
+    <mat-form-field class="plan-inversion">
+      <input matInput placeholder="Tipo Mtvo" disabled  [(ngModel)]="retiro.tipoMvto">
     </mat-form-field>
-  </div>
-  <div class="column-tipoR">
-    <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="retiro.nombreMvto">
+    <mat-form-field class="nombre-plan">
+      <input matInput disabled  [(ngModel)]="retiro.nombreMvto">
     </mat-form-field>
   </div>
 </div>
@@ -139,58 +109,43 @@
 <div class="row valor-retiro">
   <div class="column-valorR">
     <mat-form-field>
-      <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="valor">
+      <input class="valor-retiro-input" navigation matInput placeholder="Valor Retiro" [(ngModel)]="valor">
     </mat-form-field>
-  </div>
-  <div class="column-valorR">
     <mat-form-field>
-      <input matInput placeholder="Nro Volante" (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="nroVolante">
+      <input matInput navigation placeholder="Nro Volante"  [(ngModel)]="nroVolante">
     </mat-form-field>
-  </div>
-  <div class="column-valorR">
-    <mat-checkbox>
+    <mat-checkbox class="nit-fex" labelPosition="before">
       Fondo Externo
     </mat-checkbox>
-  </div>
-  <div class="column-valorR">
-    <mat-form-field>
-      <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="fondoExterno.nit">
+    <mat-form-field class="nit-fex">
+      <input matInput navigation placeholder="Nit Fondo Externo" [(ngModel)]="fondoExterno.nit">
     </mat-form-field>
-  </div>
-  <div class="column-valorR">
-    <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="fondoExterno.nombre">
+    <mat-form-field class="name">
+      <input matInput disabled  [(ngModel)]="fondoExterno.nombre">
     </mat-form-field>
   </div>
 </div>
 <div class=" row forma-pago">
   <div class="column-formaP">
     <mat-form-field>
-      <input tab-directive type="text" placeholder="Forma de Pago" matInput [(ngModel)]="formaPago.codigo" >
-
+      <input class="code" navigation tab-directive type="text" placeholder="Forma de Pago" matInput [(ngModel)]="formaPago.codigo" >
     </mat-form-field>
-  </div>
-  <div class="column-formaP">
-    <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="formaPago.nombre">
+    <mat-form-field class="name-fondo">
+      <input matInput disabled  [(ngModel)]="formaPago.nombre">
     </mat-form-field>
-  </div>
-  <div class="column-formaP">
     <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="formaPago.operacionesGratis">
+      <input matInput placeholder="Operaciones Gratis" disabled  [(ngModel)]="formaPago.operacionesGratis">
     </mat-form-field>
-  </div>
-  <div class="column-formaP">
     <mat-form-field>
-      <input matInput disabled (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="condicionPensionado">
+      <input matInput placeholder="Condición de Pensionado" disabled  [(ngModel)]="formaPago.condicionPensionado">
     </mat-form-field>
   </div>
 </div>
 
 <div class="row observaciones">
   <div class="column-observ">
-    <mat-form-field>
-      <input matInput (keydown.enter)="onKeydown($event, 0)" [(ngModel)]="observaciones">
+    <mat-form-field class="observaciones">
+      <input matInput navigation placeholder="Observaciones" [(ngModel)]="observaciones">
     </mat-form-field>
   </div>
 </div>

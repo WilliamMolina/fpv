@@ -1,5 +1,5 @@
 .container {
-  padding: 20px;
+  padding: 30px;
   display: flex;
   flex-flow: wrap;
 }
@@ -8,15 +8,15 @@
   width: 100%;
 }
 .column-section-one__user-input {
-  flex-basis: calc(100% / 4);
-  
-  border: 0.5px solid rgba(0, 0, 0, 0.03);
+  flex-basis: calc(100%/2);
+}
+
+.column-section-one_user-radio {
+  flex-basis: calc(100%/3);
 }
 
 .column-oficina {
   flex-basis: calc(100% / 2);
-  
-  border: 0.5px solid rgba(0, 0, 0, 0.03);
 }
 
 #radiobtn {
@@ -37,9 +37,8 @@
 
 .container__section-one,
 .container__section-two {
-  border: 0.5px solid rgba(0, 0, 0, 0.03);
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 0px;
+  margin-bottom: 0px;
   width: 100%;
 }
 /* Angular Material */
@@ -58,33 +57,62 @@
 .forma-pago,
 .tipo-retiro,
 .section-one__user-inputs {
-  margin: 0 0 5px 0;
+  margin: 0 0 0px 0;
 }
 .column-fondo {
-  flex-basis: calc(100% / 2);
-  
-  border: 0.5px solid rgba(0, 0, 0, 0.03);
+  flex-basis: calc(100%);
 }
 .column-encargado {
-  flex-basis: calc(100% / 3);
-  
-  border: 0.5px solid rgba(0, 0, 0, 0.03);
+  flex-basis: calc(100%);
 }
 .column-titular,
 .column-tipoR,
 .column-formaP {
-  flex-basis: calc(100% / 4);
-  
-  border: 0.5px solid rgba(0, 0, 0, 0.03);
+  flex-basis: calc(100%);
 }
 
 .column-valorR {
-  flex-basis: calc(100% / 5);
-  
-  border: 0.5px solid rgba(0, 0, 0, 0.03);
+  flex-basis: calc(100%);
 }
 .column-observ {
   flex-basis: 100%;
-  
-  border: 0.5px solid rgba(0, 0, 0, 0.03);
+}
+
+.name{
+  width: 400px !important;
+}
+
+.name-fondo{
+  width: 700px !important;
+}
+
+.code {
+  text-align: center !important;
+}
+
+.verification{
+  width: 20px !important;
+  text-align: center !important;
+}
+
+.persona{
+  width: 680px !important;
+}
+
+.plan-inversion{
+  width: 100px !important;
+}
+
+.nombre-plan{
+  width: 250px !important;
+}
+
+.valor-retiro-input{
+  text-align: right !important;
+}
+.nit-fex{
+  margin-left: 20px;
+}
+.observaciones{
+  width: 100% !important;
 }
