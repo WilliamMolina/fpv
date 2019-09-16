@@ -10,6 +10,12 @@ export class ApiService {
   public getNews(){
     const headers = new HttpHeaders()
             .set("Content-Type", "application/json");
-    return this.httpClient.get("http://localhost:8080/fpv/ciudades", {headers});
+    return this.httpClient.get("http://localhost:8080/fpv/oficinas.json", {headers});
+  }
+
+  public getEncargos(){
+    const headers = new HttpHeaders()
+            .set("Content-Type", "application/json");
+    return this.httpClient.get("http://localhost:8080/fpv/encargos.json", {headers});
   }
 }

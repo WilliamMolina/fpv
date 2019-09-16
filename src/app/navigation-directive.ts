@@ -4,13 +4,14 @@ import { NavigationElement } from './navigation';
 
 @Directive({ selector: '[navigation]' })
 export class NavigationDirective{
+  next: NavigationDirective;
   constructor(private el: ElementRef, private renderer: Renderer) { 
-
+    
   }
 
   @HostListener('keydown.enter', ['$event']) enter()
   {
-    if(this.el.next) this.renderer.invokeElementMethod(this.el.next.el.nativeElement, 'focus');
+    if(this.next) this.renderer.invokeElementMethod(this.next.el.nativeElement, 'focus');
   }
   
 }

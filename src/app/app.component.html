@@ -1,155 +1,330 @@
 <div class="container">
-<!-- First section -->
-<div class="container__section-one">
-<div class="row section-one__user-inputs">
+  <!-- First section -->
+  <div class="container__section-one">
+    <div class="row section-one__user-inputs">
 
-  <div class="column-section-one__user-input">
-    <mat-form-field>
-    <input class="code" matInput navigation placeholder="Usuario" [(ngModel)]="user">
-  </mat-form-field>
-  <mat-form-field class="name">
-    <input matInput disabled  [(ngModel)]="username">
-  </mat-form-field>
-  </div>
+      <div class="column-section-one__user-input">
+        <mat-form-field>
+          <input class="code" matInput disabled placeholder="Usuario" [(ngModel)]="user">
+        </mat-form-field>
+        <mat-form-field class="name">
+          <input matInput disabled [(ngModel)]="username">
+        </mat-form-field>
+      </div>
 
-  <div id="radiobtn" class="column-section-one__user-radio">
-    <div>
-      <mat-radio-group aria-label="Select an option">
-        <mat-radio-button class="individualRB" value="1" checked>Fecha del Fondo</mat-radio-button>
-        <mat-radio-button class="individualRB" value="2">Día Siguiente</mat-radio-button>
-        <mat-radio-button class="individualRB" value="3">Fecha Futura</mat-radio-button>
-      </mat-radio-group>
-    </div>
-    </div>
+      <div id="radiobtn" class="column-section-one__user-radio">
+        <div>
+          <mat-radio-group aria-label="Select an option">
+            <mat-radio-button class="individualRB" value="1" checked>Fecha del Fondo</mat-radio-button>
+            <mat-radio-button class="individualRB" value="2">Día Siguiente</mat-radio-button>
+            <mat-radio-button class="individualRB" value="3">Fecha Futura</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
 
-    <div id="dateInput" class="column-section-one__user-radio">
+      <div id="dateInput" class="column-section-one__user-radio">
         <mat-form-field>
           <input type="date" matInput placeholder="Fecha" [ngModel]="fecha |date:'yyyy-MM-dd'">
         </mat-form-field>
       </div>
-</div>
-  <div class="row section-one__office">
-    <div class="column-oficina">
+    </div>
+    <div class="row section-one__office">
+      <div class="column-oficina">
+        <mat-form-field>
+          <input class="code" tab-directive navigation type="text" placeholder="oficina" matInput
+            [formControl]="myControl" [matAutocomplete]="auto" [value]="oficina.codigo">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="select($event, option)"
+              [value]="option.codigo">
+              {{option.codigo}}
+            </mat-option>
+            <!-- First section-END -->
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field class="name">
+          <input tab-directive disabled type="text" matInput [value]="oficina.nombre">
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- <br> -->
+  </div>
+  <h1 class="intermedial-title">Identificación de la operación</h1>
+  <!-- Second section -->
+  <div class="container__section-two">
+    <div class="row fondo">
+      <div class="column-fondo">
+        <mat-form-field class="globalPading">
+          <input matInput class="code" navigation [(ngModel)]="fondo.codigo">
+        </mat-form-field>
+        <mat-form-field class="globalPading name-fondo">
+          <input matInput disabled [(ngModel)]="fondo.nombre">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row encargado">
+      <div class="column-encargado">
+        <mat-form-field>
+          <input class="code" tab-directive navigation type="text" placeholder="Encargo" matInput
+            [formControl]="encargosControl" [matAutocomplete]="auto" [value]="encargo.numero">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredEncargos | async" (onSelectionChange)="selectEncargo($event, option)"
+              [value]="option.numero">
+              {{option.numero}}
+            </mat-option>
+            <!-- First section-END -->
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field class="verification">
+          <input matInput navigation [(ngModel)]="encargo.codigoVerificacion">
+        </mat-form-field>
+        <mat-form-field class="persona">
+          <input matInput disabled [(ngModel)]="encargo.persona">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row titular">
+      <div class="column-titular">
+        <mat-form-field>
+          <input class="code" matInput placeholder="Titular" disabled [(ngModel)]="encargo.identificacion">
+        </mat-form-field>
+        <mat-form-field class="name-fondo">
+          <input matInput disabled [(ngModel)]="encargo.nombre">
+        </mat-form-field>
+        <mat-form-field class="plan-inversion">
+          <input matInput placeholder="Plan de Inversión" disabled [(ngModel)]="encargo.codigoPlanInversion">
+        </mat-form-field>
+        <mat-form-field class="nombre-plan">
+          <input matInput disabled [(ngModel)]="encargo.nombrePlanInversion">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class=" row tipo-retiro">
+      <div class="column-tipoR">
+        <mat-form-field>
+          <input class="code" navigation tab-directive type="text" placeholder="Tipo de Retiro" matInput
+            [(ngModel)]="retiro.codigo">
+        </mat-form-field>
+        <mat-form-field class="name-fondo">
+          <input matInput disabled [(ngModel)]="retiro.nombre">
+        </mat-form-field>
+        <mat-form-field class="plan-inversion">
+          <input matInput placeholder="Tipo Mtvo" disabled [(ngModel)]="retiro.tipoMvto">
+        </mat-form-field>
+        <mat-form-field class="nombre-plan">
+          <input matInput disabled [(ngModel)]="retiro.nombreMvto">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row valor-retiro">
+      <div class="column-valorR">
+        <mat-form-field>
+          <input class="valor-retiro-input" navigation matInput placeholder="Valor Retiro" [(ngModel)]="valor">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput navigation placeholder="Nro Volante" [(ngModel)]="nroVolante">
+        </mat-form-field>
+        <mat-checkbox class="nit-fex" labelPosition="before">
+          Fondo Externo
+        </mat-checkbox>
+        <mat-form-field class="nit-fex">
+          <input matInput navigation placeholder="Nit Fondo Externo" [(ngModel)]="fondoExterno.nit">
+        </mat-form-field>
+        <mat-form-field class="name">
+          <input matInput disabled [(ngModel)]="fondoExterno.nombre">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class=" row forma-pago">
+      <div class="column-formaP">
+        <mat-form-field>
+          <input class="code" navigation tab-directive type="text" placeholder="Forma de Pago" matInput
+            [(ngModel)]="formaPago.codigo">
+        </mat-form-field>
+        <mat-form-field class="name-fondo">
+          <input matInput disabled [(ngModel)]="formaPago.nombre">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Operaciones Gratis" disabled [(ngModel)]="formaPago.operacionesGratis">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Condición de Pensionado" disabled [(ngModel)]="formaPago.condicionPensionado">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row observaciones">
+      <div class="column-observ">
+        <mat-form-field class="observaciones">
+          <input matInput navigation placeholder="Observaciones" [(ngModel)]="observaciones">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <!-- Second section-END -->
+  <h1 class="intermedial-title">Saldo del Encargo</h1>
+  <!-- Trhird section - START -->
+  <div class="container__section-two">
+    <div class="row">
       <mat-form-field>
-        <input  class="code" tab-directive navigation type="text" placeholder="oficina" matInput [formControl]="myControl" [matAutocomplete]="auto"  [value]="oficina.codigo">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="select($event, option)" [value]="option.codigo">
-            {{option.codigo}}
-          </mat-option>
-          <!-- First section-END -->
-        </mat-autocomplete>
+        <input disabled tab-directive type="text" placeholder="Saldo total" matInput [ngModel]="encargo.saldo.total">
       </mat-form-field>
-      <mat-form-field class="name">
-        <input tab-directive disabled type="text" matInput  [value]="oficina.nombre">
-      </mat-form-field>
-    </div>
-  </div>
-<!-- <br> -->
-</div>
-<h1 class="intermedial-title">Identificación de la operación</h1>
-<!-- Second section -->
-<div class="container__section-two">
-  <div class="row fondo">
-    <div class="column-fondo">
-      <mat-form-field class="globalPading">
-        <input matInput  class="code" navigation  [(ngModel)]="fondo.codigo">
-      </mat-form-field>
-      <mat-form-field class="globalPading name-fondo">
-        <input matInput disabled  [(ngModel)]="fondo.nombre">
-      </mat-form-field>
-    </div>
-  </div>
-  <div class="row encargado">
-    <div class="column-encargado">
       <mat-form-field>
-            <input class="code" tab-directive navigation type="text" placeholder="Encargo" matInput [(ngModel)]="encargo.numero">
+        <input disabled tab-directive type="text" placeholder="Saldo en Canje" matInput
+          [ngModel]="encargo.saldo.enCanje">
       </mat-form-field>
-      <mat-form-field class="verification">
-        <input matInput navigation  [(ngModel)]="encargo.codigoVerificacion">
+      <mat-form-field>
+        <input disabled tab-directive type="text" placeholder="Aportes sin Historia" matInput
+          [ngModel]="encargo.saldo.aportesSinHistoria">
       </mat-form-field>
-      <mat-form-field class="persona">
-        <input matInput  disabled  [(ngModel)]="encargo.persona">
+      <mat-form-field>
+        <input disabled tab-directive type="text" placeholder="Disponible Portafolio Estable" matInput
+          [ngModel]="encargo.saldo.disponiblePortafolioEstable">
       </mat-form-field>
     </div>
   </div>
-
-<div class="row titular">
-<div class="column-titular">
-    <mat-form-field>
-        <input  class="code" matInput placeholder="Titular" disabled  [(ngModel)]="encargo.identificacion">
-      </mat-form-field>
-  <mat-form-field class="name-fondo">
-    <input matInput disabled  [(ngModel)]="encargo.nombre">
-  </mat-form-field>
-    <mat-form-field class="plan-inversion">
-        <input matInput placeholder="Plan de Inversión" disabled  [(ngModel)]="encargo.codigoPlanInversion">
-      </mat-form-field>
-    <mat-form-field class="nombre-plan">
-        <input matInput disabled  [(ngModel)]="encargo.nombrePlanInversion">
-      </mat-form-field>
-</div>
-</div>
-<div class=" row tipo-retiro">
-  <div class="column-tipoR">
-    <mat-form-field>
-      <input class="code" navigation tab-directive type="text" placeholder="Tipo de Retiro" matInput [(ngModel)]="retiro.codigo">
-    </mat-form-field>
-  <mat-form-field class="name-fondo">
-      <input matInput disabled  [(ngModel)]="retiro.nombre">
-    </mat-form-field>
-    <mat-form-field class="plan-inversion">
-      <input matInput placeholder="Tipo Mtvo" disabled  [(ngModel)]="retiro.tipoMvto">
-    </mat-form-field>
-    <mat-form-field class="nombre-plan">
-      <input matInput disabled  [(ngModel)]="retiro.nombreMvto">
-    </mat-form-field>
+  <h1 class="intermedial-title">Informaci&oacute; Subcuentas</h1>
+  <div class="container__section-two">
+    <div class="row">
+      <div class="column-table">C&oacute;digo</div>
+      <div class="column-table">Descripci&oacute;n</div>
+      <div class="column-table">Permite Retiros</div>
+      <div class="column-table">Saldo Total</div>
+      <div class="column-table">Saldo Canje</div>
+      <div class="column-table">Aportes Sin Historia</div>
+      <div class="column-table">Disponible Portafolio Estable</div>
+      <div class="column-table">Disponible Consolidado</div>
+      <div class="column-table">Valor a Retirar</div>
+    </div>
+    <div class="row" *ngFor="let subcuenta of subcuentas">
+      <div class="column-table">{{subcuenta.codigo}}</div>
+      <div class="column-table">{{subcuenta.descripcion}}</div>
+      <div class="column-table">{{subcuenta.permiteRetiros}}</div>
+      <div class="column-table">{{subcuenta.saldoTotal}}</div>
+      <div class="column-table">{{subcuenta.saldoCanje}}</div>
+      <div class="column-table">{{subcuenta.aportesSinHistoria}}</div>
+      <div class="column-table">{{subcuenta.disponiblePortafolioEstable}}</div>
+      <div class="column-table">{{subcuenta.disponibleConsolidado}}</div>
+      <div class="column-table">
+        <mat-form-field>
+          <input navigation tab-directive type="text" matInput [(ngModel)]="subcuenta.valorARetirar">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="divider">
+    <div class="left">
+      <h1 class="intermedial-title">Valores Aplicados en la Operación</h1>
+      <div class="container__section-two">
+        <div class="row">
+          <label>Contribución Especial</label>
+          <mat-form-field>
+            <input name="contriespe" disabled type="text" matInput [(ngModel)]="valoresOperacion.contribucionEspecial">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <label>Retención en la Fuente</label>
+          <mat-form-field>
+            <input disabled type="text" matInput [(ngModel)]="valoresOperacion.retencionFuente">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <label>Rete. en la Fuente Capital</label>
+          <mat-form-field>
+            <input disabled type="text" matInput [(ngModel)]="valoresOperacion.retencionFuenteCapital">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <label>Retención Contingente</label>
+          <mat-form-field>
+            <input disabled type="text" matInput [(ngModel)]="valoresOperacion.retencionContingente">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <label>Costos de Operación</label>
+          <mat-form-field>
+            <input disabled type="text" matInput [(ngModel)]="valoresOperacion.costosOperacion">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <label>Iva Costos de Operación</label>
+          <mat-form-field>
+            <input disabled type="text" matInput [(ngModel)]="valoresOperacion.ivaCostosOperacion">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <label>Costos Bancarios</label>
+          <mat-form-field>
+            <input disabled type="text" matInput [(ngModel)]="valoresOperacion.costosBancarios">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <label>Comisión por Retiro</label>
+          <mat-form-field>
+            <input disabled type="text" matInput [(ngModel)]="valoresOperacion.comisionRetiro">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <label>Rendimientos</label>
+          <mat-form-field>
+            <input disabled type="text" matInput [(ngModel)]="valoresOperacion.rendimientos">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <label>Total Operación</label>
+          <mat-form-field>
+            <input disabled type="text" matInput [(ngModel)]="valoresOperacion.totalOperacion">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <h1 class="intermedial-title">Beneficiario del Giro</h1>
+      <div class="container__section-two">
+        <div class="row">
+          <mat-form-field>
+            <input navigation type="text" placeholder="Identificación" matInput
+              [(ngModel)]="beneficiario.identificacion">
+          </mat-form-field>
+          <mat-form-field>
+            <input disabled type="text" placeholder="Tp Id" matInput [ngModel]="beneficiario.tipoId">
+          </mat-form-field>
+          <mat-form-field>
+            <input disabled type="text" placeholder="Descripción" matInput [ngModel]="beneficiario.descripcion">
+          </mat-form-field>
+          <mat-form-field>
+            <input disabled type="text" placeholder="Digito" matInput [ngModel]="beneficiario.digito">
+          </mat-form-field>
+        </div>
+      </div>
+      <h1 class="intermedial-title">Cuenta Bancaria Pagadora</h1>
+      <div class="container__section-two">
+        <div class="row">
+          <mat-form-field>
+            <input disabled type="text" matInput [(ngModel)]="cuenta.codigoBanco">
+          </mat-form-field>
+          <mat-form-field>
+            <input disabled type="text" matInput [ngModel]="cuenta.nombreBanco">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field>
+            <input navigation type="text" matInput [(ngModel)]="cuenta.numero">
+          </mat-form-field>
+          <mat-form-field>
+            <input disabled type="text" matInput [ngModel]="cuenta.tipo">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field>
+            <input type="text" matInput [(ngModel)]="cuenta.nroCheque">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="row valor-retiro">
-  <div class="column-valorR">
-    <mat-form-field>
-      <input class="valor-retiro-input" navigation matInput placeholder="Valor Retiro" [(ngModel)]="valor">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput navigation placeholder="Nro Volante"  [(ngModel)]="nroVolante">
-    </mat-form-field>
-    <mat-checkbox class="nit-fex" labelPosition="before">
-      Fondo Externo
-    </mat-checkbox>
-    <mat-form-field class="nit-fex">
-      <input matInput navigation placeholder="Nit Fondo Externo" [(ngModel)]="fondoExterno.nit">
-    </mat-form-field>
-    <mat-form-field class="name">
-      <input matInput disabled  [(ngModel)]="fondoExterno.nombre">
-    </mat-form-field>
-  </div>
-</div>
-<div class=" row forma-pago">
-  <div class="column-formaP">
-    <mat-form-field>
-      <input class="code" navigation tab-directive type="text" placeholder="Forma de Pago" matInput [(ngModel)]="formaPago.codigo" >
-    </mat-form-field>
-    <mat-form-field class="name-fondo">
-      <input matInput disabled  [(ngModel)]="formaPago.nombre">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Operaciones Gratis" disabled  [(ngModel)]="formaPago.operacionesGratis">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Condición de Pensionado" disabled  [(ngModel)]="formaPago.condicionPensionado">
-    </mat-form-field>
-  </div>
-</div>
 
-<div class="row observaciones">
-  <div class="column-observ">
-    <mat-form-field class="observaciones">
-      <input matInput navigation placeholder="Observaciones" [(ngModel)]="observaciones">
-    </mat-form-field>
-  </div>
-</div>
-</div>
-<!-- Second section-END -->
-</div>
 <router-outlet></router-outlet>

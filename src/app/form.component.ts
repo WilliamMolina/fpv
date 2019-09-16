@@ -15,7 +15,7 @@ export class FormComponent {
   ngAfterViewInit() {
     this.navegacion = this.inputs.toArray();
     this.navegacion.forEach((field, index) => {
-        field.el.next = this.navegacion[index+1];
+        field.next = this.navegacion[index+1];
     });
     console.log(this.navegacion);
   }

@@ -36,7 +36,8 @@
 }
 
 .container__section-one,
-.container__section-two {
+.container__section-two,
+.divider {
   padding: 0px;
   margin-bottom: 0px;
   width: 100%;
@@ -115,4 +116,15 @@
 }
 .observaciones{
   width: 100% !important;
+}
+
+.divider .left,
+.divider .right{
+  float:left;
+  height: auto;
+  width: 50%;
+}
+
+.column-table {
+  flex-basis: calc(100% / 9);
 }

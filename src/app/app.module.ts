@@ -1,20 +1,23 @@
 /* Angular material */
 import { AngularMaterialModule } from './angular-material.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ElementRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {FormComponent} from './form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {TabDirective} from './tab-directive';
 import {NavigationDirective} from './navigation-directive';
 import { HttpClientModule } from '@angular/common/http';
+import {NavigationElement} from './navigation';
 
 @NgModule({
   declarations: [
     AppComponent,
     TabDirective,
-    NavigationDirective
+    NavigationDirective,
+    FormComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [NavigationElement],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
