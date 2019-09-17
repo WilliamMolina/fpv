@@ -21,6 +21,11 @@ import { TipoRetiro } from './tipo-retiro';
 })
 
 export class AppComponent extends FormComponent implements OnInit {
+  saldoTotal: 2292877.93;
+  saldoCanje: 0.00;
+  aportesSinHistoria: 0.00;
+  disponiblePortafolioEstable: 2292877.93;
+  disponibleConsolidado: 0.00;
   tipoRetiro: TipoRetiro = {
     codigo: "",
     nombre: "",
@@ -63,7 +68,7 @@ export class AppComponent extends FormComponent implements OnInit {
     },
     {
       nombre: "Rendimientos",
-      valor: 0
+      valor: 31744.22
     }];
   total: 856000;
   cuenta: Cuenta = {
@@ -86,17 +91,6 @@ export class AppComponent extends FormComponent implements OnInit {
     disponiblePortafolioEstable: 2969258.51
   };
   subcuentas: SubCuenta[] = [
-    {
-      codigo: 1,
-      descripcion: "FUNCIONARIO",
-      permiteRetiros: "S",
-      saldoTotal: 2292877.93,
-      saldoCanje: 0.00,
-      aportesSinHistoria: 0.00,
-      disponiblePortafolioEstable: 2292877.93,
-      disponibleConsolidado: 0.00,
-      valorARetirar: 856000,
-    }
   ];
   user: string = "KMEDINA";
   username: string = "KAREN MEDINA"
@@ -123,7 +117,7 @@ export class AppComponent extends FormComponent implements OnInit {
     "tipoMvto": "385",
     "nombreMvto": "RETIRO EXENTO (COMISION RECAUDO)"
   };
-  valor: string = "856000";
+  valor: string = "0";
   nroVolante: string = "";
   fondoExterno: object = {
     "nit": "123453223",
@@ -155,6 +149,7 @@ export class AppComponent extends FormComponent implements OnInit {
   filteredTerceros: Observable<string[]>;
   filteredCPagadoras: Observable<string[]>;
   filteredFPago: Observable<string[]>;
+  showResumen: Boolean = false;
   constructor(protected renderer: Renderer, private apiService: ApiService) {
     super(renderer);
   }
@@ -209,12 +204,37 @@ export class AppComponent extends FormComponent implements OnInit {
       //this.renderer.invokeElementMethod(this.navegacion[index + 1]._elementRef.nativeElement, 'focus');
     }
   }
+  afectarAportes(): void {
+    this.showResumen = true;
+  }
+  valorARetirar(): number {
+    let prueba = this.subcuentas.map(t => Number(t.valorARetirar)).reduce((acc, value) => acc + value, 0);
+    console.log(prueba);
+    return prueba;
+  }
+  valorRestante(): number {
+    return Number(this.valor) - this.valorARetirar();
+  }
   select(event, option) {
     if (event.source.selected) this.oficina = option;
   }
 
   selectEncargo(event, option) {
-    if (event.source.selected) this.encargo = option;
+    if (event.source.selected) { 
+      this.encargo = option;
+      this.subcuentas=[{
+        codigo: 1,
+        descripcion: "FUNCIONARIO",
+        permiteRetiros: "S",
+        saldoTotal: 2292877.93,
+        saldoCanje: 0.00,
+        aportesSinHistoria: 0.00,
+        disponiblePortafolioEstable: 2292877.93,
+        disponibleConsolidado: 0.00,
+        valorARetirar: 856000,
+      }]
+     }
+
   }
   selectTipoRetiro(event, option) {
     if (event.source.selected) this.tipoRetiro = option;
@@ -255,8 +275,8 @@ export class AppComponent extends FormComponent implements OnInit {
     const filterValue = value.toLowerCase();
     return this.cuentasPagadoras.filter(option => option.numero.toLowerCase().indexOf(filterValue) === 0);
   }
-  getTotalCost(): number{
-    return 123456;
+  getTotalCost(): number {
+    return 856000;
   }
 }
 

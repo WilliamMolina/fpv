@@ -198,8 +198,8 @@
       </mat-form-field>
     </div>
   </div>
-  <h1 class="intermedial-title">Informaci&oacute; Subcuentas</h1>
-  <div class="container__section-two">
+  <h1 class="intermedial-title">Informaci&oacute;n Subcuentas</h1>
+  <div class="container__section-table">
     <div class="row">
       <div class="column-table">C&oacute;digo</div>
       <div class="column-table">Descripci&oacute;n</div>
@@ -212,55 +212,120 @@
       <div class="column-table">Valor a Retirar</div>
     </div>
     <div class="row" *ngFor="let subcuenta of subcuentas">
-      <div class="column-table">{{subcuenta.codigo}}</div>
-      <div class="column-table">{{subcuenta.descripcion}}</div>
-      <div class="column-table">{{subcuenta.permiteRetiros}}</div>
-      <div class="column-table">{{subcuenta.saldoTotal}}</div>
-      <div class="column-table">{{subcuenta.saldoCanje}}</div>
-      <div class="column-table">{{subcuenta.aportesSinHistoria}}</div>
-      <div class="column-table">{{subcuenta.disponiblePortafolioEstable}}</div>
-      <div class="column-table">{{subcuenta.disponibleConsolidado}}</div>
+      <div class="column-table-disabled">
+        <mat-form-field>
+          <input matInput disabled [ngModel]="subcuenta.codigo">
+        </mat-form-field>
+      </div>
+      <div class="column-table-disabled">
+        <mat-form-field>
+          <input matInput disabled [ngModel]="subcuenta.descripcion">
+        </mat-form-field>
+      </div>
+      <div class="column-table-disabled">
+        <mat-form-field>
+          <input matInput disabled [ngModel]="subcuenta.permiteRetiros">
+        </mat-form-field>
+      </div>
+      <div class="column-table-disabled">
+        <mat-form-field>
+          <input matInput disabled [ngModel]="subcuenta.saldoTotal">
+        </mat-form-field>
+      </div>
+      <div class="column-table-disabled">
+        <mat-form-field>
+          <input matInput disabled [ngModel]="subcuenta.saldoCanje">
+        </mat-form-field>
+      </div>
+      <div class="column-table-disabled">
+        <mat-form-field>
+          <input matInput disabled [ngModel]="subcuenta.aportesSinHistoria">
+        </mat-form-field>
+      </div>
+      <div class="column-table-disabled">
+        <mat-form-field>
+          <input matInput disabled [ngModel]="subcuenta.disponiblePortafolioEstable">
+        </mat-form-field>
+      </div>
+      <div class="column-table-disabled">
+        <mat-form-field>
+          <input matInput disabled [ngModel]="subcuenta.disponibleConsolidado">
+        </mat-form-field>
+      </div>
       <div class="column-table">
         <mat-form-field>
           <input navigation tab-directive type="text" matInput [(ngModel)]="subcuenta.valorARetirar">
         </mat-form-field>
       </div>
     </div>
+    <div class="row">
+      <div class="column-table">
+      </div>
+      <div class="column-table">
+      </div>
+      <div class="column-table">
+      </div>
+      <div class="column-table-disabled-bold">
+        <mat-form-field>
+          <input matInput disabled value="2292877.93">
+        </mat-form-field>
+      </div>
+      <div class="column-table-disabled-bold">
+        <mat-form-field>
+          <input matInput disabled value="0">
+        </mat-form-field>
+      </div>
+      <div class="column-table-disabled-bold">
+        <mat-form-field>
+          <input matInput disabled value="0">
+        </mat-form-field>
+      </div>
+      <div class="column-table-disabled-bold">
+        <mat-form-field>
+          <input matInput disabled value="2292877.93">
+        </mat-form-field>
+      </div>
+      <div class="column-table-disabled-bold">
+        <mat-form-field>
+          <input matInput disabled value="0">
+        </mat-form-field>
+      </div>
+      <div class="column-table-disabled-bold">
+        <mat-form-field>
+          <input disabled type="text" matInput [value]="valorARetirar()">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column-table">
+      </div>
+      <div class="column-table">
+      </div>
+      <div class="column-table">
+      </div>
+      <div class="column-table">
+      </div>
+      <div class="column-table">
+      </div>
+      <div class="column-table">
+      </div>
+      <div class="column-table">
+      </div>
+      <div class="column-table-disabled-bold">
+        Valor Restante
+      </div>
+      <div class="column-table-disabled-bold">
+        {{valorRestante()}}
+      </div>
+    </div>
   </div>
   <div class="divider">
-    <div class="left">
-      <mat-tab-group>
-        <mat-tab label="Resumen Operación">
-          <h1 class="intermedial-title">Valores Aplicados en la Operación</h1>
-          <div class="container__section-two">
-            <table mat-table [dataSource]="valoresOperacion" class="mat-elevation-z8">
-              <!-- Name Column -->
-              <ng-container matColumnDef="Nombre">
-                <th mat-header-cell *matHeaderCellDef> Nombre </th>
-                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-                <td mat-footer-cell *matFooterCellDef> Total </td>
-              </ng-container>
-
-              <!-- Weight Column -->
-              <ng-container matColumnDef="Valor">
-                <th mat-header-cell *matHeaderCellDef> Valor </th>
-                <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
-                <td mat-footer-cell *matFooterCellDef> {{getTotalCost()}} </td>
-              </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-            </table>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
     <div class="right">
       <h1 class="intermedial-title">Beneficiario del Giro</h1>
       <div class="container__section-two">
         <div class="row">
           <mat-form-field>
-            <input class="code" tab-directive navigation type="text" placeholder="Tipo de Retiro" matInput
+            <input class="code" tab-directive navigation type="text" placeholder="Identificación" matInput
               [formControl]="terceroControl" [matAutocomplete]="tercerocomplete" [value]="beneficiario.identificacion">
             <mat-autocomplete autoActiveFirstOption #tercerocomplete="matAutocomplete">
               <mat-option *ngFor="let option of filteredTerceros | async"
@@ -276,7 +341,7 @@
           <mat-form-field>
             <input disabled type="text" placeholder="Descripción" matInput [ngModel]="beneficiario.descripcion">
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="verification-digit">
             <input disabled type="text" placeholder="Digito" matInput [ngModel]="beneficiario.digito">
           </mat-form-field>
         </div>
@@ -285,7 +350,7 @@
       <div class="container__section-two">
         <div class="row">
           <mat-form-field>
-            <input disabled type="text" matInput [(ngModel)]="cuenta.codigoBanco">
+            <input disabled placeholder="Banco" type="text" matInput [(ngModel)]="cuenta.codigoBanco">
           </mat-form-field>
           <mat-form-field>
             <input disabled type="text" matInput [ngModel]="cuenta.nombreBanco">
@@ -294,7 +359,7 @@
         <div class="row">
           <mat-form-field>
             <input class="code" tab-directive navigation type="text" matInput [formControl]="cPagadoraControl"
-              [matAutocomplete]="cpagadoracomplete" [value]="cuenta.numero">
+              [matAutocomplete]="cpagadoracomplete" [value]="cuenta.numero" placeholder="Nro Cuenta">
             <mat-autocomplete autoActiveFirstOption #cpagadoracomplete="matAutocomplete">
               <mat-option *ngFor="let option of filteredCPagadoras | async"
                 (onSelectionChange)="selectCPagadora($event, option)" [value]="option.numero">
@@ -309,10 +374,39 @@
         </div>
         <div class="row">
           <mat-form-field>
-            <input type="text" matInput [(ngModel)]="nroCheque">
+            <input placeholder="Cheque" type="text" matInput [(ngModel)]="nroCheque">
           </mat-form-field>
         </div>
+        <div class="row">
+          <button mat-flat-button color="primary" (click)="afectarAportes()">Afectar Aportes Automático</button>
+        </div>
       </div>
+    </div>
+    <div class="left" *ngIf="showResumen">
+      <mat-tab-group>
+        <mat-tab label="Resumen Operación">
+          <div class="container__section-two">
+            <table mat-table [dataSource]="valoresOperacion" class="mat-elevation-z8">
+              <!-- Name Column -->
+              <ng-container matColumnDef="Nombre">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                <td mat-footer-cell *matFooterCellDef> Total </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="Valor">
+                <th mat-header-cell *matHeaderCellDef> Valor </th>
+                <td mat-cell *matCellDef="let element"> {{element.valor | currency}} </td>
+                <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+            </table>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </div>
