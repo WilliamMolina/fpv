@@ -3,5 +3,4 @@ export class Cuenta{
     nombreBanco: string;
     numero: string;
     tipo: string;
-    nroCheque: string;
 }

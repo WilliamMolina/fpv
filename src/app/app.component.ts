@@ -10,8 +10,9 @@ import { Saldo } from './saldo';
 import { SubCuenta } from './subcuenta';
 import { Beneficiario } from './beneficiario';
 import { Cuenta } from './cuenta';
-import { ValoresOperacion } from './valores-operacion';
+import { ValorOperacion } from './valores-operacion';
 import { Encargo } from './encargo';
+import { TipoRetiro } from './tipo-retiro';
 
 @Component({
   selector: 'app-root',
@@ -20,31 +21,63 @@ import { Encargo } from './encargo';
 })
 
 export class AppComponent extends FormComponent implements OnInit {
-  valoresOperacion: ValoresOperacion = {
-    contribucionEspecial: 0,
-    retencionFuente: 0,
-    retencionFuenteCapital: 0,
-    retencionContingente: 0,
-    costosOperacion: 0,
-    ivaCostosOperacion: 0,
-    costosBancarios: 0,
-    comisionRetiro: 0,
-    rendimientos: 31744.22,
-    totalOperacion: 856000
+  tipoRetiro: TipoRetiro = {
+    codigo: "",
+    nombre: "",
+    tpmv: "",
+    nombreTpmv: ""
   };
-
+  displayedColumns: string[] = ['Nombre', 'Valor'];
+  valoresOperacion: ValorOperacion[] = [
+    {
+      nombre: "Contribución Especial",
+      valor: 0
+    },
+    {
+      nombre: "Retención en la Fuente",
+      valor: 0
+    },
+    {
+      nombre: "Rete. En La Fuente Capital",
+      valor: 0
+    },
+    {
+      nombre: "Retención Contingente",
+      valor: 0
+    },
+    {
+      nombre: "Costos de Operación",
+      valor: 0
+    },
+    {
+      nombre: "Iva Costos de Operación",
+      valor: 0
+    },
+    {
+      nombre: "Costos Bancarios",
+      valor: 0
+    },
+    {
+      nombre: "Comisión por Retiro",
+      valor: 0
+    },
+    {
+      nombre: "Rendimientos",
+      valor: 0
+    }];
+  total: 856000;
   cuenta: Cuenta = {
-    codigoBanco: "23",
-    nombreBanco: "BANCO DE OCCIDENTE",
-    numero: "270063696",
-    tipo: "CUENTA CORRIENTE",
-    nroCheque: "600001"
-  }
+    codigoBanco: "",
+    nombreBanco: "",
+    numero: "",
+    tipo: ""
+  };
+  nroCheque: number = 6000123;
   beneficiario: Beneficiario = {
-    identificacion: "79435173",
-    tipoId: "C",
-    descripcion: "JUAN LOPEZ PEREZ",
-    digito: "0"
+    identificacion: "",
+    tipoId: "",
+    descripcion: "",
+    digito: ""
   }
   saldo: Saldo = {
     total: 2999251.03,
@@ -97,19 +130,31 @@ export class AppComponent extends FormComponent implements OnInit {
     "nombre": "FONDO EXTERNO"
   };
   formaPago: object = {
-    "codigo": "CH",
-    "nombre": "Cheque",
-    "operacionesGratis": 2,
-    "condicionPensionado": "N"
+    "id": "CH",
+    "descripcion": "Cheque"
   };
+  operacionesGratis: number = 2;
+  condicionPensionado: string = "N";
   observaciones: string = "RETIRO EXENTO (COMISION RECAUDO)";
   fecha: Date = new Date();
   myControl = new FormControl();
   encargosControl = new FormControl();
+  tRetiroControl = new FormControl();
+  terceroControl = new FormControl();
+  cPagadoraControl = new FormControl();
+  fPagoControl = new FormControl();
   ciudades: any = [];
   encargos: any = [];
+  retiros: any = [];
+  terceros: any = [];
+  cuentasPagadoras: any = [];
+  formasPago: any = [];
+  filteredTipoRetiro: Observable<string[]>;
   filteredOptions: Observable<string[]>;
   filteredEncargos: Observable<string[]>;
+  filteredTerceros: Observable<string[]>;
+  filteredCPagadoras: Observable<string[]>;
+  filteredFPago: Observable<string[]>;
   constructor(protected renderer: Renderer, private apiService: ApiService) {
     super(renderer);
   }
@@ -129,6 +174,34 @@ export class AppComponent extends FormComponent implements OnInit {
         map(value => this._filterEncargos(value))
       );
     });
+    this.apiService.getRetiros().subscribe((data) => {
+      this.retiros = data;
+      this.filteredTipoRetiro = this.tRetiroControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterTipoRetiro(value))
+      );
+    });
+    this.apiService.getTerceros().subscribe((data) => {
+      this.terceros = data;
+      this.filteredTerceros = this.terceroControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterTercero(value))
+      );
+    });
+    this.apiService.getCuentasPagadoras().subscribe((data) => {
+      this.cuentasPagadoras = data;
+      this.filteredCPagadoras = this.cPagadoraControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterCPagadora(value))
+      );
+    });
+    this.apiService.getFormasPago().subscribe((data) => {
+      this.formasPago = data;
+      this.filteredFPago = this.fPagoControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterFPago(value))
+      );
+    });
   }
 
   onKeydown(event, index) {
@@ -143,15 +216,47 @@ export class AppComponent extends FormComponent implements OnInit {
   selectEncargo(event, option) {
     if (event.source.selected) this.encargo = option;
   }
+  selectTipoRetiro(event, option) {
+    if (event.source.selected) this.tipoRetiro = option;
+  }
+  selectTercero(event, option) {
+    if (event.source.selected) this.beneficiario = option;
+  }
+  selectCPagadora(event, option) {
+    if (event.source.selected) this.cuenta = option;
+  }
+  selectFPago(event, option) {
+    if (event.source.selected) this.formaPago = option;
+  }
+
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.ciudades.filter(option => option.codigo.toLowerCase().indexOf(filterValue) === 0);
   }
+  private _filterFPago(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.formasPago.filter(option => (option.id + ' - ' + option.descripcion).toLowerCase().indexOf(filterValue) === 0);
+  }
 
   private _filterEncargos(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.encargos.filter(option => option.numero.toLowerCase().indexOf(filterValue) === 0);
+  }
+  private _filterTipoRetiro(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.retiros.filter(option => (option.codigo + ' - ' + option.nombre).toLowerCase().indexOf(filterValue) === 0);
+  }
+  private _filterTercero(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.terceros.filter(option => option.identificacion.toLowerCase().indexOf(filterValue) === 0);
+  }
+  private _filterCPagadora(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.cuentasPagadoras.filter(option => option.numero.toLowerCase().indexOf(filterValue) === 0);
+  }
+  getTotalCost(): number{
+    return 123456;
   }
 }
 

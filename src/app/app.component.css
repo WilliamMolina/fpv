@@ -128,3 +128,13 @@
 .column-table {
   flex-basis: calc(100% / 9);
 }
+
+table{
+  position: relative;
+  width: 80%;
+  left:10%;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
