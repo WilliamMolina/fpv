@@ -21,6 +21,7 @@ import { TipoRetiro } from './tipo-retiro';
 })
 
 export class AppComponent extends FormComponent implements OnInit {
+  mostrarEncargos: Boolean = true;
   saldoTotal: 2292877.93;
   saldoCanje: 0.00;
   aportesSinHistoria: 0.00;
@@ -70,7 +71,7 @@ export class AppComponent extends FormComponent implements OnInit {
       nombre: "Rendimientos",
       valor: 31744.22
     }];
-  total: 856000;
+  total:number = 0;
   cuenta: Cuenta = {
     codigoBanco: "",
     nombreBanco: "",
@@ -90,8 +91,17 @@ export class AppComponent extends FormComponent implements OnInit {
     aportesSinHistoria: 0.00,
     disponiblePortafolioEstable: 2969258.51
   };
-  subcuentas: SubCuenta[] = [
-  ];
+  subcuentas: SubCuenta[] = [{
+    codigo: 1,
+    descripcion: "FUNCIONARIO",
+    permiteRetiros: "S",
+    saldoTotal: 2292877.93,
+    saldoCanje: 0.00,
+    aportesSinHistoria: 0.00,
+    disponiblePortafolioEstable: 2292877.93,
+    disponibleConsolidado: 0.00,
+    valorARetirar: 0,
+  }];
   user: string = "KMEDINA";
   username: string = "KAREN MEDINA"
   oficina: Oficina = { "codigo": "30", "nombre": "BOGOTÁ - MORATO" };
@@ -120,8 +130,8 @@ export class AppComponent extends FormComponent implements OnInit {
   valor: string = "0";
   nroVolante: string = "";
   fondoExterno: object = {
-    "nit": "123453223",
-    "nombre": "FONDO EXTERNO"
+    "nit": "",
+    "nombre": ""
   };
   formaPago: object = {
     "id": "CH",
@@ -209,7 +219,7 @@ export class AppComponent extends FormComponent implements OnInit {
   }
   valorARetirar(): number {
     let prueba = this.subcuentas.map(t => Number(t.valorARetirar)).reduce((acc, value) => acc + value, 0);
-    console.log(prueba);
+    this.total = prueba;
     return prueba;
   }
   valorRestante(): number {
@@ -222,17 +232,7 @@ export class AppComponent extends FormComponent implements OnInit {
   selectEncargo(event, option) {
     if (event.source.selected) { 
       this.encargo = option;
-      this.subcuentas=[{
-        codigo: 1,
-        descripcion: "FUNCIONARIO",
-        permiteRetiros: "S",
-        saldoTotal: 2292877.93,
-        saldoCanje: 0.00,
-        aportesSinHistoria: 0.00,
-        disponiblePortafolioEstable: 2292877.93,
-        disponibleConsolidado: 0.00,
-        valorARetirar: 856000,
-      }]
+      this.mostrarEncargos = false;
      }
 
   }
@@ -256,7 +256,7 @@ export class AppComponent extends FormComponent implements OnInit {
   }
   private _filterFPago(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.formasPago.filter(option => (option.id + ' - ' + option.descripcion).toLowerCase().indexOf(filterValue) === 0);
+    return this.formasPago.filter(option => (option.id + ' - ' + option.descripcion).toLowerCase().indexOf(filterValue) !== -1);
   }
 
   private _filterEncargos(value: string): string[] {
@@ -276,7 +276,7 @@ export class AppComponent extends FormComponent implements OnInit {
     return this.cuentasPagadoras.filter(option => option.numero.toLowerCase().indexOf(filterValue) === 0);
   }
   getTotalCost(): number {
-    return 856000;
+    return this.total;
   }
 }
 

@@ -147,7 +147,7 @@
       <div class="column-formaP">
         <mat-form-field>
           <input class="code" tab-directive navigation type="text" matInput [formControl]="fPagoControl"
-            [matAutocomplete]="fpagocomplete" [value]="formaPago.id">
+            [matAutocomplete]="fpagocomplete" [value]="formaPago.id" placeholder="Forma de Pago">
           <mat-autocomplete autoActiveFirstOption #fpagocomplete="matAutocomplete">
             <mat-option *ngFor="let option of filteredFPago | async" (onSelectionChange)="selectFPago($event, option)"
               [value]="option.id">
