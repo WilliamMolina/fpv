@@ -4,12 +4,15 @@ import {
     MatInputModule,
     MatRadioModule,
     MatDividerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTabsModule,
+    MatTableModule,
+    MatButtonModule
 } from '@angular/material';
 
 @NgModule({
-    imports: [MatAutocompleteModule,MatInputModule, MatRadioModule, MatDividerModule, MatCheckboxModule],
-    exports: [MatAutocompleteModule,MatInputModule, MatRadioModule, MatDividerModule, MatCheckboxModule]
+    imports: [MatAutocompleteModule,MatInputModule, MatRadioModule, MatDividerModule, MatCheckboxModule, MatTabsModule, MatTableModule, MatButtonModule],
+    exports: [MatAutocompleteModule,MatInputModule, MatRadioModule, MatDividerModule, MatCheckboxModule, MatTabsModule, MatTableModule, MatButtonModule]
 })
 
 export class AngularMaterialModule { }

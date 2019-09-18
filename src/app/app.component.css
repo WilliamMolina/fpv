@@ -1,0 +1,171 @@
+.container {
+  padding: 30px;
+  display: flex;
+  flex-flow: wrap;
+}
+.row {
+  display: flex;
+  width: 100%;
+}
+.column-section-one__user-input {
+  flex-basis: calc(100%/2);
+}
+
+.column-section-one_user-radio {
+  flex-basis: calc(100%/3);
+}
+
+.column-oficina {
+  flex-basis: calc(100% / 2);
+}
+
+#radiobtn {
+  flex-basis: 36em;
+  display: flex;
+  align-items: center;
+}
+
+#dateInput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intermedial-title {
+  font-size: 14px;
+}
+
+.container__section-one,
+.container__section-two,
+.container__section-table,
+.divider {
+  padding: 0px;
+  margin-bottom: 0px;
+  width: 100%;
+}
+
+.container__section-table{
+  border-top: 1px solid #9e9e9e;
+  border-bottom: 1px solid #9e9e9e;
+}
+.container__section-table .row:first-child{
+  border-bottom: 1px solid #9e9e9e;
+}
+.container__section-table .row:last-child{
+  border-top: 1px solid #9e9e9e;
+}
+/* Angular Material */
+.individualRB {
+  margin: 5px;
+}
+/* Second Section*/
+.fondo,
+.encargado,
+.titular,
+.valor-retiro,
+.forma-pago,
+.tipo-retiro,
+.section-one__user-inputs {
+  margin: 0 0 0px 0;
+}
+.column-fondo {
+  flex-basis: calc(100%);
+}
+.column-encargado {
+  flex-basis: calc(100%);
+}
+.column-titular,
+.column-tipoR,
+.column-formaP {
+  flex-basis: calc(100%);
+}
+
+.column-valorR {
+  flex-basis: calc(100%);
+}
+.column-observ {
+  flex-basis: 100%;
+}
+
+.name{
+  width: 400px !important;
+}
+
+.name-fondo{
+  width: 700px !important;
+}
+
+.code {
+  text-align: center !important;
+}
+
+.verification{
+  width: 20px !important;
+  text-align: center !important;
+}
+.verification-digit{
+  width: 50px !important;
+  text-align: center !important;
+}
+
+.persona{
+  width: 680px !important;
+}
+
+.plan-inversion{
+  width: 100px !important;
+}
+
+.nombre-plan{
+  width: 250px !important;
+}
+
+.valor-retiro-input{
+  text-align: right !important;
+}
+.nit-fex{
+  margin-left: 20px;
+}
+.observaciones{
+  width: 100% !important;
+}
+
+.divider .left,
+.divider .right{
+  float:left;
+  height: auto;
+  width: 50%;
+}
+
+.column-table, .column-table-disabled,
+.column-table-disabled-bold {
+  flex-basis: calc(100% / 9);
+}
+
+.column-table .mat-form-field, .column-table-disabled .mat-form-field,
+.column-table-disabled-bold .mat-form-field{
+  width: 135px !important;
+}
+
+.column-table-disabled .mat-form-field{
+  color: black !important;
+  opacity: 1;
+}
+
+.column-table-disabled ::ng-deep .mat-form-field-underline,
+.column-table-disabled-bold ::ng-deep .mat-form-field-underline {
+  display: none;
+}
+.column-table-disabled-bold .mat-form-field{
+  font-weight: bold;
+}
+
+table{
+  position: relative;
+  width: 80%;
+  left:10%;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
