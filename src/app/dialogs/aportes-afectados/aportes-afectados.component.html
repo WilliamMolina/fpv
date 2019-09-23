@@ -1,0 +1,99 @@
+<table mat-table [dataSource]="data.aportesAfectados">
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> Orden </th>
+    <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="nroAporte">
+    <th mat-header-cell *matHeaderCellDef>nroAporte</th>
+    <td mat-cell *matCellDef="let element"> {{element.nroAporte}}</td>
+  </ng-container>
+  <ng-container matColumnDef="fechaAporte">
+    <th mat-header-cell *matHeaderCellDef>fechaAporte</th>
+    <td mat-cell *matCellDef="let element"> {{element.fechaAporte |date:'yyyy-MM-dd'}}</td>
+  </ng-container>
+  <ng-container matColumnDef="opcion">
+    <th mat-header-cell *matHeaderCellDef>opcion</th>
+    <td mat-cell *matCellDef="let element"> {{element.opcion}}</td>
+  </ng-container>
+  <ng-container matColumnDef="sbota">
+    <th mat-header-cell *matHeaderCellDef>sbota</th>
+    <td mat-cell *matCellDef="let element"> {{element.sbota}}</td>
+  </ng-container>
+  <ng-container matColumnDef="valorAporte">
+    <th mat-header-cell *matHeaderCellDef>valorAporte</th>
+    <td mat-cell *matCellDef="let element"> {{element.valorAporte}}</td>
+  </ng-container>
+  <ng-container matColumnDef="saldoAporte">
+    <th mat-header-cell *matHeaderCellDef>saldoAporte</th>
+    <td mat-cell *matCellDef="let element"> {{element.saldoAporte}}</td>
+  </ng-container>
+  <ng-container matColumnDef="saldoRendimientos">
+    <th mat-header-cell *matHeaderCellDef>saldoRendimientos</th>
+    <td mat-cell *matCellDef="let element"> {{element.saldoRendimientos}}</td>
+  </ng-container>
+  <ng-container matColumnDef="liberaCntge">
+    <th mat-header-cell *matHeaderCellDef>liberaCntge</th>
+    <td mat-cell *matCellDef="let element"> {{element.liberaCntge}}</td>
+  </ng-container>
+  <ng-container matColumnDef="rfteEstimadaCapital">
+    <th mat-header-cell *matHeaderCellDef>rfteEstimadaCapital</th>
+    <td mat-cell *matCellDef="let element"> {{element.rfteEstimadaCapital}}</td>
+  </ng-container>
+  <ng-container matColumnDef="comiRetiroAnticipado">
+    <th mat-header-cell *matHeaderCellDef>comiRetiroAnticipado</th>
+    <td mat-cell *matCellDef="let element"> {{element.comiRetiroAnticipado}}</td>
+  </ng-container>
+  <ng-container matColumnDef="valorDisponible">
+    <th mat-header-cell *matHeaderCellDef>valorDisponible</th>
+    <td mat-cell *matCellDef="let element"> {{element.valorDisponible}}</td>
+  </ng-container>
+  <ng-container matColumnDef="saldoRetencion">
+    <th mat-header-cell *matHeaderCellDef>saldoRetencion</th>
+    <td mat-cell *matCellDef="let element"> {{element.saldoRetencion}}</td>
+  </ng-container>
+  <ng-container matColumnDef="valorEgreso">
+    <th mat-header-cell *matHeaderCellDef>valorEgreso</th>
+    <td mat-cell *matCellDef="let element"> {{element.valorEgreso}}</td>
+  </ng-container>
+  <ng-container matColumnDef="valorTotalEgreso">
+    <th mat-header-cell *matHeaderCellDef>valorTotalEgreso</th>
+    <td mat-cell *matCellDef="let element"> {{element.valorTotalEgreso}}</td>
+  </ng-container>
+  <ng-container matColumnDef="feteFuenteEstimada">
+    <th mat-header-cell *matHeaderCellDef>feteFuenteEstimada</th>
+    <td mat-cell *matCellDef="let element"> {{element.feteFuenteEstimada}}</td>
+  </ng-container>
+  <ng-container matColumnDef="costosOperacion">
+    <th mat-header-cell *matHeaderCellDef>costosOperacion</th>
+    <td mat-cell *matCellDef="let element"> {{element.costosOperacion}}</td>
+  </ng-container>
+  <ng-container matColumnDef="rendimientosARetirar">
+    <th mat-header-cell *matHeaderCellDef>rendimientosARetirar</th>
+    <td mat-cell *matCellDef="let element"> {{element.rendimientosARetirar}}</td>
+  </ng-container>
+  <ng-container matColumnDef="reteFuenteCapital">
+    <th mat-header-cell *matHeaderCellDef>reteFuenteCapital</th>
+    <td mat-cell *matCellDef="let element"> {{element.reteFuenteCapital}}</td>
+  </ng-container>
+  <ng-container matColumnDef="reteFuenteAPracticar">
+    <th mat-header-cell *matHeaderCellDef>reteFuenteAPracticar</th>
+    <td mat-cell *matCellDef="let element"> {{element.reteFuenteAPracticar}}</td>
+  </ng-container>
+  <ng-container matColumnDef="contingenteAPracticar">
+    <th mat-header-cell *matHeaderCellDef>contingenteAPracticar</th>
+    <td mat-cell *matCellDef="let element"> {{element.contingenteAPracticar}}</td>
+  </ng-container>
+  <ng-container matColumnDef="comiRetAntiA">
+    <th mat-header-cell *matHeaderCellDef>comiRetAntiA</th>
+    <td mat-cell *matCellDef="let element"> {{element.comiRetAntiA}}</td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+</div>
