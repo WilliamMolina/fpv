@@ -334,7 +334,7 @@ export class AppComponent extends FormComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AportesAfectadosComponent, {
-      width: '80%',
+      width: '95%',
       data: { aportesAfectados: this.aportesAfectados }
     });
 
