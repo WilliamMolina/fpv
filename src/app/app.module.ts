@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {NavigationElement} from './navigation';
 import { AportesAfectadosComponent } from './dialogs/aportes-afectados/aportes-afectados.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { SeleccionManualComponent } from './dialogs/seleccion-manual/seleccion-manual.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     NavigationDirective,
     FormComponent,
     AportesAfectadosComponent,
-    NavbarComponent
+    NavbarComponent,
+    SeleccionManualComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     HttpClientModule
   ],
   providers: [NavigationElement],
-  entryComponents: [AportesAfectadosComponent],
+  entryComponents: [AportesAfectadosComponent, SeleccionManualComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

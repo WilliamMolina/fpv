@@ -16,6 +16,7 @@ import { TipoRetiro } from './tipo-retiro';
 import { MatDialog } from '@angular/material';
 import { AportesAfectadosComponent } from './dialogs/aportes-afectados/aportes-afectados.component';
 import { AporteAfectado } from './models/aporte-afectado';
+import { SeleccionManualComponent } from './dialogs/seleccion-manual/seleccion-manual.component';
 
 @Component({
   selector: 'app-root',
@@ -188,7 +189,7 @@ export class AppComponent extends FormComponent implements OnInit {
   };
   formaPago: object = {
     "id": "CH",
-    "descripcion": "Cheque"
+    "descripcion": ""
   };
   operacionesGratis: number = 2;
   condicionPensionado: string = "N";
@@ -334,6 +335,18 @@ export class AppComponent extends FormComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AportesAfectadosComponent, {
+      width: '95%',
+      data: { aportesAfectados: this.aportesAfectados }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
+
+  openDialogManual(): void {
+    const dialogRef = this.dialog.open(SeleccionManualComponent, {
       width: '95%',
       data: { aportesAfectados: this.aportesAfectados }
     });

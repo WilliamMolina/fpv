@@ -2,115 +2,115 @@
 
   <!-- Name Column -->
   <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef> Orden </th>
-    <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center"> Orden </th>
+    <td mat-cell *matCellDef="let element; let i = index" class="center"> {{i + 1}} </td>
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
 
   <ng-container matColumnDef="nroAporte">
-    <th mat-header-cell *matHeaderCellDef>Nro Aporte</th>
-    <td mat-cell *matCellDef="let element"> {{element.nroAporte}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Nro Aporte</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.nroAporte}}</td>
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
   <ng-container matColumnDef="fechaAporte">
-    <th mat-header-cell *matHeaderCellDef>Fecha Aporte</th>
-    <td mat-cell *matCellDef="let element"> {{element.fechaAporte |date:'dd/MM/yyyy'}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Fecha Aporte</th>
+    <td mat-cell *matCellDef="let element" class="center"> {{element.fechaAporte |date:'dd/MM/yyyy'}}</td>
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
   <ng-container matColumnDef="opcion">
-    <th mat-header-cell *matHeaderCellDef>Opción</th>
-    <td mat-cell *matCellDef="let element"> {{element.opcion}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Opción</th>
+    <td mat-cell *matCellDef="let element" class="center"> {{element.opcion}}</td>
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
   <ng-container matColumnDef="sbota">
-    <th mat-header-cell *matHeaderCellDef>Sbota</th>
-    <td mat-cell *matCellDef="let element"> {{element.sbota}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Sbota</th>
+    <td mat-cell *matCellDef="let element" class="center"> {{element.sbota}}</td>
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
   <ng-container matColumnDef="valorAporte">
-    <th mat-header-cell *matHeaderCellDef>Valor Aporte</th>
-    <td mat-cell *matCellDef="let element"> {{element.valorAporte}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Valor Aporte</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.valorAporte | currency}}</td>
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
   <ng-container matColumnDef="saldoAporte">
-    <th mat-header-cell *matHeaderCellDef>Saldo Aporte</th>
-    <td mat-cell *matCellDef="let element"> {{element.saldoAporte}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Saldo Aporte</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.saldoAporte | currency}}</td>
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
   <ng-container matColumnDef="saldoRendimientos">
-    <th mat-header-cell *matHeaderCellDef>Saldo Rendimientos</th>
-    <td mat-cell *matCellDef="let element"> {{element.saldoRendimientos}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Saldo Rendimientos</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.saldoRendimientos | currency}}</td>
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container>
   <ng-container matColumnDef="liberaCntge">
-    <th mat-header-cell *matHeaderCellDef>Libera Cntge</th>
-    <td mat-cell *matCellDef="let element"> {{element.liberaCntge}}</td>
-    <td mat-footer-cell *matFooterCellDef>Total</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Libera Cntge</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.liberaCntge}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number blue-header">Total</td>
   </ng-container>
   <ng-container matColumnDef="rfteEstimadaCapital">
-    <th mat-header-cell *matHeaderCellDef>Rfte Estimada Sobre Capital</th>
-    <td mat-cell *matCellDef="let element"> {{element.rfteEstimadaCapital}}</td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotal('rfteEstimadaCapital') | currency}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Rfte Estimada Sobre Capital</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.rfteEstimadaCapital | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number">{{getTotal('rfteEstimadaCapital') | currency}}</td>
   </ng-container>
   <ng-container matColumnDef="comiRetiroAnticipado">
-    <th mat-header-cell *matHeaderCellDef>Comi X Retiro Anticipado</th>
-    <td mat-cell *matCellDef="let element"> {{element.comiRetiroAnticipado}}</td>
-    <td mat-footer-cell *matFooterCellDef> {{getTotal('comiRetiroAnticipado') | currency}} </td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Comi X Retiro Anticipado</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.comiRetiroAnticipado | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number"> {{getTotal('comiRetiroAnticipado') | currency}} </td>
   </ng-container>
   <ng-container matColumnDef="valorDisponible">
-    <th mat-header-cell *matHeaderCellDef>Valor Disponible</th>
-    <td mat-cell *matCellDef="let element"> {{element.valorDisponible}}</td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotal('valorDisponible') | currency}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Valor Disponible</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.valorDisponible | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number">{{getTotal('valorDisponible') | currency}}</td>
   </ng-container>
   <ng-container matColumnDef="saldoRetencion">
-    <th mat-header-cell *matHeaderCellDef>Saldo Retencion</th>
-    <td mat-cell *matCellDef="let element"> {{element.saldoRetencion}}</td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotal('saldoRetencion') | currency}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Saldo Retencion</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.saldoRetencion | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number">{{getTotal('saldoRetencion') | currency}}</td>
   </ng-container>
   <ng-container matColumnDef="valorEgreso">
-    <th mat-header-cell *matHeaderCellDef>Valor Egreso</th>
-    <td mat-cell *matCellDef="let element"> {{element.valorEgreso}}</td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotal('valorEgreso') | currency}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Valor Egreso</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.valorEgreso | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number">{{getTotal('valorEgreso') | currency}}</td>
   </ng-container>
   <ng-container matColumnDef="valorTotalEgreso">
-    <th mat-header-cell *matHeaderCellDef>Valor Total Egreso</th>
-    <td mat-cell *matCellDef="let element"> {{element.valorTotalEgreso}}</td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotal('valorTotalEgreso') | currency}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Valor Total Egreso</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.valorTotalEgreso | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef  class="number">{{getTotal('valorTotalEgreso') | currency}}</td>
   </ng-container>
   <ng-container matColumnDef="feteFuenteEstimada">
-    <th mat-header-cell *matHeaderCellDef>ReteFuente Estimada</th>
-    <td mat-cell *matCellDef="let element"> {{element.feteFuenteEstimada}}</td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotal('feteFuenteEstimada') | currency}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">ReteFuente Estimada</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.feteFuenteEstimada | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number">{{getTotal('feteFuenteEstimada') | currency}}</td>
   </ng-container>
   <ng-container matColumnDef="costosOperacion">
-    <th mat-header-cell *matHeaderCellDef>Costos de Operacion</th>
-    <td mat-cell *matCellDef="let element"> {{element.costosOperacion}}</td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotal('costosOperacion') | currency}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Costos de Operacion</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.costosOperacion | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number">{{getTotal('costosOperacion') | currency}}</td>
   </ng-container>
   <ng-container matColumnDef="rendimientosARetirar">
-    <th mat-header-cell *matHeaderCellDef>Rendimientos a Retirar</th>
-    <td mat-cell *matCellDef="let element"> {{element.rendimientosARetirar}}</td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotal('rendimientosARetirar') | currency}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Rendimientos a Retirar</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.rendimientosARetirar | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number">{{getTotal('rendimientosARetirar') | currency}}</td>
   </ng-container>
   <ng-container matColumnDef="reteFuenteCapital">
-    <th mat-header-cell *matHeaderCellDef>Retefuente sobre Capital</th>
-    <td mat-cell *matCellDef="let element"> {{element.reteFuenteCapital}}</td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotal('reteFuenteCapital') | currency}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Retefuente sobre Capital</th>
+    <td mat-cell *matCellDef="let element"class="number"> {{element.reteFuenteCapital | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number">{{getTotal('reteFuenteCapital') | currency}}</td>
   </ng-container>
   <ng-container matColumnDef="reteFuenteAPracticar">
-    <th mat-header-cell *matHeaderCellDef>Retefuente a Practicar</th>
-    <td mat-cell *matCellDef="let element"> {{element.reteFuenteAPracticar}}</td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotal('reteFuenteAPracticar') | currency}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Retefuente a Practicar</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.reteFuenteAPracticar | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number">{{getTotal('reteFuenteAPracticar') | currency}}</td>
   </ng-container>
   <ng-container matColumnDef="contingenteAPracticar">
-    <th mat-header-cell *matHeaderCellDef>Contingente a Practicar</th>
-    <td mat-cell *matCellDef="let element"> {{element.contingenteAPracticar}}</td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotal('contingenteAPracticar') | currency}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Contingente a Practicar</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.contingenteAPracticar | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number">{{getTotal('contingenteAPracticar') | currency}}</td>
   </ng-container>
   <ng-container matColumnDef="comiRetAntiA">
-    <th mat-header-cell *matHeaderCellDef>Comi Ret Anti A</th>
-    <td mat-cell *matCellDef="let element"> {{element.comiRetAntiA}}</td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotal('comiRetAntiA') | currency}}</td>
+    <th mat-header-cell *matHeaderCellDef class="blue-header center">Comi Ret Anti A</th>
+    <td mat-cell *matCellDef="let element" class="number"> {{element.comiRetAntiA | currency}}</td>
+    <td mat-footer-cell *matFooterCellDef class="number">{{getTotal('comiRetAntiA') | currency}}</td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

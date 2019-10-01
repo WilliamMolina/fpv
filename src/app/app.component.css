@@ -218,10 +218,6 @@ tr.mat-footer-row {
   text-align: left;
 }
 
-.number{
-  text-align: right;
-}
-
 .mat-radio-group{
   font-size: 11px;
   margin-right: 20px;
@@ -287,4 +283,10 @@ tr.mat-footer-row {
 
 .center{
   text-align: center;
+}
+
+.resumen{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 }
