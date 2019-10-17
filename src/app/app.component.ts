@@ -13,6 +13,10 @@ import { Cuenta } from './cuenta';
 import { ValorOperacion } from './valores-operacion';
 import { Encargo } from './encargo';
 import { TipoRetiro } from './tipo-retiro';
+import { MatDialog } from '@angular/material';
+import { AportesAfectadosComponent } from './dialogs/aportes-afectados/aportes-afectados.component';
+import { AporteAfectado } from './models/aporte-afectado';
+import { SeleccionManualComponent } from './dialogs/seleccion-manual/seleccion-manual.component';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +25,56 @@ import { TipoRetiro } from './tipo-retiro';
 })
 
 export class AppComponent extends FormComponent implements OnInit {
+  aportesAfectados: AporteAfectado[] = [
+    {
+      nroAporte: "332",
+      fechaAporte: new Date(),
+      opcion: '1',
+      sbota: '2',
+      valorAporte: 2000000,
+      saldoAporte: 2000900,
+      saldoRendimientos: 1423.12,
+      liberaCntge: 'NO',
+      rfteEstimadaCapital: 0,
+      comiRetiroAnticipado: 0,
+      valorDisponible: 0,
+      saldoRetencion: 0,
+      valorEgreso: 2000000,
+      valorTotalEgreso: 2000000,
+      feteFuenteEstimada: 0,
+      costosOperacion: 900,
+      rendimientosARetirar: 1423.12,
+      reteFuenteCapital: 0,
+      reteFuenteAPracticar: 0,
+      contingenteAPracticar: 0,
+      comiRetAntiA: 0
+    },
+    {
+      nroAporte: "4",
+      fechaAporte: new Date(),
+      opcion: '1',
+      sbota: '2',
+      valorAporte: 4000000,
+      saldoAporte: 3900000,
+      saldoRendimientos: 400000,
+      liberaCntge: 'NO',
+      rfteEstimadaCapital: 0,
+      comiRetiroAnticipado: 0,
+      valorDisponible: 3900000,
+      saldoRetencion: 0,
+      valorEgreso: 3000000,
+      valorTotalEgreso: 3000000,
+      feteFuenteEstimada: 0,
+      costosOperacion: 900,
+      rendimientosARetirar: 1423.12,
+      reteFuenteCapital: 0,
+      reteFuenteAPracticar: 0,
+      contingenteAPracticar: 0,
+      comiRetAntiA: 0
+    }
+  ];
+  animal: string;
+  name: string;
   mostrarEncargos: Boolean = true;
   saldoTotal: 2292877.93;
   saldoCanje: 0.00;
@@ -71,7 +125,7 @@ export class AppComponent extends FormComponent implements OnInit {
       nombre: "Rendimientos",
       valor: 31744.22
     }];
-  total:number = 0;
+  total: number = 0;
   cuenta: Cuenta = {
     codigoBanco: "",
     nombreBanco: "",
@@ -135,7 +189,7 @@ export class AppComponent extends FormComponent implements OnInit {
   };
   formaPago: object = {
     "id": "CH",
-    "descripcion": "Cheque"
+    "descripcion": ""
   };
   operacionesGratis: number = 2;
   condicionPensionado: string = "N";
@@ -160,7 +214,7 @@ export class AppComponent extends FormComponent implements OnInit {
   filteredCPagadoras: Observable<string[]>;
   filteredFPago: Observable<string[]>;
   showResumen: Boolean = false;
-  constructor(protected renderer: Renderer, private apiService: ApiService) {
+  constructor(protected renderer: Renderer, private apiService: ApiService, public dialog: MatDialog) {
     super(renderer);
   }
   ngOnInit() {
@@ -230,10 +284,10 @@ export class AppComponent extends FormComponent implements OnInit {
   }
 
   selectEncargo(event, option) {
-    if (event.source.selected) { 
+    if (event.source.selected) {
       this.encargo = option;
       this.mostrarEncargos = false;
-     }
+    }
 
   }
   selectTipoRetiro(event, option) {
@@ -277,6 +331,30 @@ export class AppComponent extends FormComponent implements OnInit {
   }
   getTotalCost(): number {
     return this.total;
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AportesAfectadosComponent, {
+      width: '95%',
+      data: { aportesAfectados: this.aportesAfectados }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
+
+  openDialogManual(): void {
+    const dialogRef = this.dialog.open(SeleccionManualComponent, {
+      width: '95%',
+      data: { aportesAfectados: this.aportesAfectados }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
   }
 }
 

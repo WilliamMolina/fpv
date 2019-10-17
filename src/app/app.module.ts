@@ -11,13 +11,19 @@ import {TabDirective} from './tab-directive';
 import {NavigationDirective} from './navigation-directive';
 import { HttpClientModule } from '@angular/common/http';
 import {NavigationElement} from './navigation';
+import { AportesAfectadosComponent } from './dialogs/aportes-afectados/aportes-afectados.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SeleccionManualComponent } from './dialogs/seleccion-manual/seleccion-manual.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TabDirective,
     NavigationDirective,
-    FormComponent
+    FormComponent,
+    AportesAfectadosComponent,
+    NavbarComponent,
+    SeleccionManualComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +35,7 @@ import {NavigationElement} from './navigation';
     HttpClientModule
   ],
   providers: [NavigationElement],
+  entryComponents: [AportesAfectadosComponent, SeleccionManualComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

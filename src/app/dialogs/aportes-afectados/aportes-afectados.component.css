@@ -1,0 +1,9 @@
+table{
+    width: 100%;
+}
+
+table td{
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 150px;
+}

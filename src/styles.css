@@ -1,14 +1,107 @@
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+  font-family: krub;
+  font-weight: 400;
+  font-style: normal;
+  src: url('fonts/krub-v1-latin-regular.ttf') format("truetype"); 
+}
+
 html,
 body {
   height: 100%;
 }
 * {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Krub', sans-serif;
 } 
 body {
-  margin: 0;
-  overflow-x: hidden;
+  margin: 0px;
   font-size: smaller;
+  background-color: white;
+}
+
+.forma table, tr {
+  border: 0ch;
+  width: 100%;
+  border-spacing: 20px 20px;
+  margin-left: -20px;
+}
+
+.forma td {
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(163,157,157,1);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(163,157,157,1);
+  box-shadow: 0px 0px 4px 0px rgba(163,157,157,1);
+  border-radius: 5px;
+
+  background-color: #ffffff;
+  padding-left: 30px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  vertical-align: top;
+}
+
+div.forma h1 {
+  color: #505050;
+  font-size: 14px;
+  margin-top: 0px;
+  font-family: 'Krub';
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-left: -10px;
+}
+
+.title {
+  border: 0px;
+  border-color: transparent;
+  border-radius: 0;
+  height: 70px;
+  width: 100%;
+  vertical-align: middle;
+  background-color: #003056;
+  margin-bottom: 15px;
+  padding-right: 0px;
+}
+
+.title_page {
+ 
+  /*-webkit-box-shadow: 0px 0px 2px 0px rgba(163,157,157,1);
+  -moz-box-shadow: 0px 0px 2px 0px rgba(163,157,157,1);
+  box-shadow: 0px 0px 2px 0px rgba(163,157,157,1);
+  border-radius: 10px;*/
+
+  background-color: #ffffff;
+  border: 5px;
+  width: 100%;
+  vertical-align: middle;
+  color: #505050;
+  font-size: 16px;
+  margin-top: 0px;
+  font-family: 'Krub';
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+
+.mat-form-field-label{
+  color:  #003056 !important;
+}
+
+
+.body_page{
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.blue-header{
+  color:  #003056 !important;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.number{
+  text-align: right !important;
+}
+
+.center{
+  text-align: center !important;
 }
