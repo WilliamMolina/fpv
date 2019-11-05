@@ -11,8 +11,8 @@ export class ApiService {
   public getNews() {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
-    //return this.httpClient.get("http://localhost:8080/fpv/oficinas.json", {headers});
-    return of([
+    return this.httpClient.get("http://localhost:8034/maestras/oficinas", {headers});
+    /*return of([
       {
         "codigo": "30",
         "nombre": "BOGOTÁ - MORATO"
@@ -29,14 +29,14 @@ export class ApiService {
         "codigo": "33",
         "nombre": "Barranquilla"
       }
-    ])
+    ])*/
   }
 
   public getEncargos() {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
-    //return this.httpClient.get("http://localhost:8080/fpv/encargos.json", {headers});
-    return of([
+    return this.httpClient.get("http://localhost:8034/maestras/encargos", {headers});
+    /*return of([
       {
         "numero": "600010035",
         "codigoVerificacion": 9,
@@ -67,13 +67,13 @@ export class ApiService {
           "disponiblePortafolioEstable": 3969258.51
         }
       }
-    ])
+    ])*/
   }
   public getRetiros() {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
-    //return this.httpClient.get("http://localhost:8080/fpv/tiposretiro.json", {headers});
-    return of([
+    return this.httpClient.get("http://localhost:8034/maestras/tiposretiro", {headers});
+    /*return of([
       {
         "codigo": "AFCE",
         "nombre": "TRASLADO  AFC O FONDO EXTERNO",
@@ -140,7 +140,7 @@ export class ApiService {
         "tpmv": "299",
         "nombreTpmv": ""
       }
-    ])
+    ])*/
   }
   public getTerceros() {
     const headers = new HttpHeaders()
@@ -189,8 +189,8 @@ export class ApiService {
   public getFormasPago() {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
-    //return this.httpClient.get("http://localhost:8080/fpv/formaspago.json", { headers });
-    return of([
+    return this.httpClient.get("http://localhost:8034/maestras/formaspago", { headers });
+    /*return of([
       {
           "id": "TE",
           "descripcion": "Traslado a encargos relacionados"
@@ -231,6 +231,6 @@ export class ApiService {
           "id": "PC",
           "descripcion": "Dev. aportes patrocinadora"
       }
-  ])
+  ])*/
   }
 }

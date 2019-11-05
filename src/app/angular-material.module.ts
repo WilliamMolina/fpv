@@ -10,12 +10,13 @@ import {
     MatButtonModule,
     MatDialogModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatIconModule
 } from '@angular/material';
 
 @NgModule({
-    imports: [MatAutocompleteModule,MatInputModule, MatRadioModule, MatDividerModule, MatCheckboxModule, MatTabsModule, MatTableModule, MatButtonModule, MatDialogModule, MatCardModule, MatGridListModule],
-    exports: [MatAutocompleteModule,MatInputModule, MatRadioModule, MatDividerModule, MatCheckboxModule, MatTabsModule, MatTableModule, MatButtonModule, MatDialogModule, MatCardModule, MatGridListModule]
+    imports: [MatAutocompleteModule,MatInputModule, MatRadioModule, MatDividerModule, MatCheckboxModule, MatTabsModule, MatTableModule, MatButtonModule, MatDialogModule, MatCardModule, MatGridListModule, MatIconModule],
+    exports: [MatAutocompleteModule,MatInputModule, MatRadioModule, MatDividerModule, MatCheckboxModule, MatTabsModule, MatTableModule, MatButtonModule, MatDialogModule, MatCardModule, MatGridListModule, MatIconModule]
 })
 
 export class AngularMaterialModule { }

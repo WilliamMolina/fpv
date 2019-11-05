@@ -1,19 +1,19 @@
-import { Directive, HostListener, ElementRef, Input, QueryList, Renderer } from '@angular/core';
-import { NavigationElement } from './navigation';
+import { Directive, HostListener, ElementRef, Renderer } from '@angular/core';
+import { NgControl } from '@angular/forms';
 
 
 @Directive({ selector: '[navigation]' })
 export class NavigationDirective{
-  next: NavigationDirective;
-  constructor(private el: ElementRef, private renderer: Renderer) { 
 
+  next: NavigationDirective;
+  constructor(private el: ElementRef,private formControl: NgControl, private renderer: Renderer) { 
+    
   }
 
   @HostListener('keydown.enter', ['$event']) enter()
   {
-    if(this.next){
+    if(this.next && this.formControl.control.errors==null){
       this.renderer.invokeElementMethod(this.next.el.nativeElement, 'focus');
-      //this.renderer.invokeElementMethod(this.next.el.nativeElement, 'scrollIntoView');
     }
   }
   

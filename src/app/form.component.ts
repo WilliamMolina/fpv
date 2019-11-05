@@ -1,4 +1,4 @@
-import {Component, ViewChildren, QueryList, Renderer} from '@angular/core';
+import { Component, ViewChildren, QueryList, Renderer } from '@angular/core';
 import { NavigationDirective } from './navigation-directive';
 
 @Component({
@@ -8,14 +8,21 @@ import { NavigationDirective } from './navigation-directive';
 })
 
 export class FormComponent {
-  navegacion:any[] = [];
+  navegacion: any[] = [];
   @ViewChildren(NavigationDirective) inputs: QueryList<any>;
-  constructor(protected renderer: Renderer) {}
+  constructor(protected renderer: Renderer) { }
 
   ngAfterViewInit() {
+    this.processChildren();
+    this.inputs.changes.subscribe(_ => {
+      this.processChildren();
+    });
+  }
+
+  private processChildren(): void {
     this.navegacion = this.inputs.toArray();
     this.navegacion.forEach((field, index) => {
-        field.next = this.navegacion[index+1];
+      field.next = this.navegacion[index + 1];
     });
     console.log(this.navegacion);
   }

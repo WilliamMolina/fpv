@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, AfterViewInit, QueryList, Renderer } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ApiService } from './api.service';
@@ -17,6 +17,9 @@ import { MatDialog } from '@angular/material';
 import { AportesAfectadosComponent } from './dialogs/aportes-afectados/aportes-afectados.component';
 import { AporteAfectado } from './models/aporte-afectado';
 import { SeleccionManualComponent } from './dialogs/seleccion-manual/seleccion-manual.component';
+import { HttpResponse } from './models/HttpResponse';
+import { AlertService } from './common/services/alert.service';
+import { FormCustomValidators } from './common/validators/form-validators';
 
 @Component({
   selector: 'app-root',
@@ -145,17 +148,7 @@ export class AppComponent extends FormComponent implements OnInit {
     aportesSinHistoria: 0.00,
     disponiblePortafolioEstable: 2969258.51
   };
-  subcuentas: SubCuenta[] = [{
-    codigo: 1,
-    descripcion: "FUNCIONARIO",
-    permiteRetiros: "S",
-    saldoTotal: 2292877.93,
-    saldoCanje: 0.00,
-    aportesSinHistoria: 0.00,
-    disponiblePortafolioEstable: 2292877.93,
-    disponibleConsolidado: 0.00,
-    valorARetirar: 0,
-  }];
+  subcuentas: SubCuenta[] = [];
   user: string = "KMEDINA";
   username: string = "KAREN MEDINA"
   oficina: Oficina = { "codigo": "30", "nombre": "BOGOTÁ - MORATO" };
@@ -195,12 +188,7 @@ export class AppComponent extends FormComponent implements OnInit {
   condicionPensionado: string = "N";
   observaciones: string = "RETIRO EXENTO (COMISION RECAUDO)";
   fecha: Date = new Date();
-  myControl = new FormControl();
-  encargosControl = new FormControl();
-  tRetiroControl = new FormControl();
-  terceroControl = new FormControl();
-  cPagadoraControl = new FormControl();
-  fPagoControl = new FormControl();
+  fpvform: FormGroup;
   ciudades: any = [];
   encargos: any = [];
   retiros: any = [];
@@ -214,49 +202,70 @@ export class AppComponent extends FormComponent implements OnInit {
   filteredCPagadoras: Observable<string[]>;
   filteredFPago: Observable<string[]>;
   showResumen: Boolean = false;
-  constructor(protected renderer: Renderer, private apiService: ApiService, public dialog: MatDialog) {
+  constructor(protected renderer: Renderer, private apiService: ApiService, private alertService: AlertService, public dialog: MatDialog, private _formBuilder: FormBuilder) {
     super(renderer);
   }
   ngOnInit() {
-    this.myControl.setValue(this.oficina.codigo);
-    this.apiService.getNews().subscribe((data) => {
-      this.ciudades = data;
-      this.filteredOptions = this.myControl.valueChanges.pipe(
+
+    this.fpvform = this._formBuilder.group({
+      valor: new FormControl(''),
+      oficinaCtrl: new FormControl('', []),
+      encargosCtrl: new FormControl(),
+      tRetiroControl: new FormControl(),
+      terceroControl: new FormControl(),
+      cPagadoraControl: new FormControl(),
+      fPagoControl: new FormControl(),
+      codigoVerificacion: new FormControl('',[Validators.required]),
+      nroVolante: new FormControl(),
+      fondoExternoNit: new FormControl(),
+      subcuentasArray: this._formBuilder.array([]),
+      subcuentaControl: new FormControl()
+    });
+
+    this.apiService.getNews().subscribe((data: HttpResponse) => {
+      this.ciudades = data.data;
+      this.fpvform.get('oficinaCtrl').setValidators([Validators.required,FormCustomValidators.valueSelected(this.ciudades)]);
+      this.filteredOptions = this.fpvform.get('oficinaCtrl').valueChanges.pipe(
         startWith(''),
         map(value => this._filter(value))
       );
+      if (this.ciudades.length > 0) {
+        this.fpvform.get('oficinaCtrl').setValue(this.ciudades[0].id);
+        this.oficina = this.ciudades[0];
+      }
     });
-    this.apiService.getEncargos().subscribe((data) => {
-      this.encargos = data;
-      this.filteredEncargos = this.encargosControl.valueChanges.pipe(
+    this.apiService.getEncargos().subscribe((data: HttpResponse) => {
+      this.encargos = data.data;
+      this.fpvform.get('encargosCtrl').setValidators([Validators.required,FormCustomValidators.valueSelected(this.encargos, 'plan')]);
+      this.filteredEncargos = this.fpvform.get('encargosCtrl').valueChanges.pipe(
         startWith(''),
         map(value => this._filterEncargos(value))
       );
     });
-    this.apiService.getRetiros().subscribe((data) => {
-      this.retiros = data;
-      this.filteredTipoRetiro = this.tRetiroControl.valueChanges.pipe(
+    this.apiService.getRetiros().subscribe((data: HttpResponse) => {
+      this.retiros = data.data;
+      this.filteredTipoRetiro = this.fpvform.get('tRetiroControl').valueChanges.pipe(
         startWith(''),
         map(value => this._filterTipoRetiro(value))
       );
     });
     this.apiService.getTerceros().subscribe((data) => {
       this.terceros = data;
-      this.filteredTerceros = this.terceroControl.valueChanges.pipe(
+      this.filteredTerceros = this.fpvform.get('terceroControl').valueChanges.pipe(
         startWith(''),
         map(value => this._filterTercero(value))
       );
     });
     this.apiService.getCuentasPagadoras().subscribe((data) => {
       this.cuentasPagadoras = data;
-      this.filteredCPagadoras = this.cPagadoraControl.valueChanges.pipe(
+      this.filteredCPagadoras = this.fpvform.get('cPagadoraControl').valueChanges.pipe(
         startWith(''),
         map(value => this._filterCPagadora(value))
       );
     });
-    this.apiService.getFormasPago().subscribe((data) => {
-      this.formasPago = data;
-      this.filteredFPago = this.fPagoControl.valueChanges.pipe(
+    this.apiService.getFormasPago().subscribe((data: HttpResponse) => {
+      this.formasPago = data.data;
+      this.filteredFPago = this.fpvform.get('fPagoControl').valueChanges.pipe(
         startWith(''),
         map(value => this._filterFPago(value))
       );
@@ -286,7 +295,26 @@ export class AppComponent extends FormComponent implements OnInit {
   selectEncargo(event, option) {
     if (event.source.selected) {
       this.encargo = option;
+      //Inicio Temporal
+      this.encargo = {
+        "numero": option.plan,
+        "codigoVerificacion": 9,
+        "persona": "EDGAR FABIAN TORRES SANCHEZ",
+        "identificacion": "79435173",
+        "nombre": "EDGAR FABIAN TORRES SANCHEZ",
+        "codigoPlanInversion": "1",
+        "nombrePlanInversion": "ABIERTO VISION -INDIVIDUALES",
+        "saldo": {
+          "total": 2999251.03,
+          "enCanje": 0.00,
+          "aportesSinHistoria": 0.00,
+          "disponiblePortafolioEstable": 2969258.51
+        }
+      };
+      // Fin temporal
       this.mostrarEncargos = false;
+      this.fpvform.get('codigoVerificacion').setValidators([Validators.required, FormCustomValidators.verificationCode(this.encargo.codigoVerificacion)]);
+      this.fpvform.get('codigoVerificacion').updateValueAndValidity();
     }
 
   }
@@ -305,8 +333,8 @@ export class AppComponent extends FormComponent implements OnInit {
 
 
   private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.ciudades.filter(option => option.codigo.toLowerCase().indexOf(filterValue) === 0);
+    const filterValue = String(value).toLowerCase();
+    return this.ciudades.filter(option => String(option.id).indexOf(filterValue) === 0);
   }
   private _filterFPago(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -314,8 +342,8 @@ export class AppComponent extends FormComponent implements OnInit {
   }
 
   private _filterEncargos(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.encargos.filter(option => option.numero.toLowerCase().indexOf(filterValue) === 0);
+    const filterValue = String(value).toLowerCase();
+    return this.encargos.filter(option => String(option.plan).toLowerCase().indexOf(filterValue) === 0);
   }
   private _filterTipoRetiro(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -333,7 +361,40 @@ export class AppComponent extends FormComponent implements OnInit {
     return this.total;
   }
 
+  openInfoModal() {
+    //this.alertService.openErrorModal("Mensaje error");
+    this.sa.push(this._formBuilder.group({
+      value: ['']
+    }));
+    this.subcuentas.push({
+      codigo: 1,
+      descripcion: "FUNCIONARIO",
+      permiteRetiros: "S",
+      saldoTotal: 2292877.93,
+      saldoCanje: 0.00,
+      aportesSinHistoria: 0.00,
+      disponiblePortafolioEstable: 2292877.93,
+      disponibleConsolidado: 0.00,
+      valorARetirar: 0,
+    });
+    console.log(this.sa);
+  }
+
+  get sa() {
+    return this.fpvform.get('subcuentasArray') as FormArray;
+  }
+  get oficinaCtrl(){
+    return this.fpvform.get('oficinaCtrl') as FormControl;
+  }
+  get encargosCtrl(){
+    return this.fpvform.get('encargosCtrl') as FormControl;
+  }
+  get codigoVerificacion(){
+    return this.fpvform.get('codigoVerificacion') as FormControl;
+  }
+
   openDialog(): void {
+
     const dialogRef = this.dialog.open(AportesAfectadosComponent, {
       width: '95%',
       data: { aportesAfectados: this.aportesAfectados }
@@ -356,5 +417,6 @@ export class AppComponent extends FormComponent implements OnInit {
       this.animal = result;
     });
   }
+
 }
 
