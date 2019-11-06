@@ -208,14 +208,14 @@ export class AppComponent extends FormComponent implements OnInit {
   ngOnInit() {
 
     this.fpvform = this._formBuilder.group({
-      valor: new FormControl(''),
+      valor: new FormControl('', [Validators.required]),
       oficinaCtrl: new FormControl('', []),
       encargosCtrl: new FormControl(),
       tRetiroControl: new FormControl(),
       terceroControl: new FormControl(),
       cPagadoraControl: new FormControl(),
       fPagoControl: new FormControl(),
-      codigoVerificacion: new FormControl('',[Validators.required]),
+      codigoVerificacion: new FormControl('', [Validators.required]),
       nroVolante: new FormControl(),
       fondoExternoNit: new FormControl(),
       subcuentasArray: this._formBuilder.array([]),
@@ -224,7 +224,7 @@ export class AppComponent extends FormComponent implements OnInit {
 
     this.apiService.getNews().subscribe((data: HttpResponse) => {
       this.ciudades = data.data;
-      this.fpvform.get('oficinaCtrl').setValidators([Validators.required,FormCustomValidators.valueSelected(this.ciudades)]);
+      this.fpvform.get('oficinaCtrl').setValidators([Validators.required, FormCustomValidators.valueSelected(this.ciudades)]);
       this.filteredOptions = this.fpvform.get('oficinaCtrl').valueChanges.pipe(
         startWith(''),
         map(value => this._filter(value))
@@ -236,7 +236,7 @@ export class AppComponent extends FormComponent implements OnInit {
     });
     this.apiService.getEncargos().subscribe((data: HttpResponse) => {
       this.encargos = data.data;
-      this.fpvform.get('encargosCtrl').setValidators([Validators.required,FormCustomValidators.valueSelected(this.encargos, 'plan')]);
+      this.fpvform.get('encargosCtrl').setValidators([Validators.required, FormCustomValidators.valueSelected(this.encargos, 'plan')]);
       this.filteredEncargos = this.fpvform.get('encargosCtrl').valueChanges.pipe(
         startWith(''),
         map(value => this._filterEncargos(value))
@@ -281,17 +281,25 @@ export class AppComponent extends FormComponent implements OnInit {
     this.showResumen = true;
   }
   valorARetirar(): number {
-    let prueba = this.subcuentas.map(t => Number(t.valorARetirar)).reduce((acc, value) => acc + value, 0);
+    let prueba = this.sa.controls.map(t => this.valorNumerico(t.get('value').value)).reduce((acc, value) => acc + value, 0);
     this.total = prueba;
     return prueba;
   }
   valorRestante(): number {
-    return Number(this.valor) - this.valorARetirar();
+    let valor = this.fpvform.get('valor').value;
+    return this.valorNumerico(valor) - this.valorARetirar();
   }
   select(event, option) {
     if (event.source.selected) this.oficina = option;
   }
-
+  valorNumerico(val: any) {
+    const numberChars = new RegExp('[^0-9]', 'g');
+    if (typeof (val) === 'string') {
+      return Number(val.replace(numberChars, ''));
+    } else {
+      return val;
+    }
+  }
   selectEncargo(event, option) {
     if (event.source.selected) {
       this.encargo = option;
@@ -311,6 +319,28 @@ export class AppComponent extends FormComponent implements OnInit {
           "disponiblePortafolioEstable": 2969258.51
         }
       };
+      this.subcuentas = [{
+        codigo: 1,
+        descripcion: "FUNCIONARIO",
+        permiteRetiros: "S",
+        saldoTotal: 2292877.93,
+        saldoCanje: 0.00,
+        aportesSinHistoria: 0.00,
+        disponiblePortafolioEstable: 2292877.93,
+        disponibleConsolidado: 0.00,
+        valorARetirar: 0,
+      },
+      {
+        codigo: 1,
+        descripcion: "FUNCIONARIO",
+        permiteRetiros: "S",
+        saldoTotal: 2292877.93,
+        saldoCanje: 0.00,
+        aportesSinHistoria: 0.00,
+        disponiblePortafolioEstable: 2292877.93,
+        disponibleConsolidado: 0.00,
+        valorARetirar: 0,
+      }];
       // Fin temporal
       this.mostrarEncargos = false;
       this.fpvform.get('codigoVerificacion').setValidators([Validators.required, FormCustomValidators.verificationCode(this.encargo.codigoVerificacion)]);
@@ -379,19 +409,19 @@ export class AppComponent extends FormComponent implements OnInit {
     });
     console.log(this.sa);
   }
-  limpiar(){
+  limpiar() {
     this.fpvform.reset();
   }
   get sa() {
     return this.fpvform.get('subcuentasArray') as FormArray;
   }
-  get oficinaCtrl(){
+  get oficinaCtrl() {
     return this.fpvform.get('oficinaCtrl') as FormControl;
   }
-  get encargosCtrl(){
+  get encargosCtrl() {
     return this.fpvform.get('encargosCtrl') as FormControl;
   }
-  get codigoVerificacion(){
+  get codigoVerificacion() {
     return this.fpvform.get('codigoVerificacion') as FormControl;
   }
 
@@ -418,6 +448,20 @@ export class AppComponent extends FormComponent implements OnInit {
       console.log('The dialog was closed');
       this.animal = result;
     });
+  }
+
+  aplicar() {
+    /*if (this.fpvform.valid) {
+      this.apiService.retirar().subscribe((data: HttpResponse) => {
+        if (data.status == "OK") {
+          this.alertService.openInfoModal(data.data.toString());
+        } else {
+          this.alertService.openErrorModal(data.data.toString());
+        }
+      });
+    } else {
+      this.alertService.openErrorModal("Por favor complete todos los campos obligatorios");
+    }*/
   }
 
 }

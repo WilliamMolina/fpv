@@ -12,7 +12,8 @@ export class NavigationDirective{
 
   @HostListener('keydown.enter', ['$event']) enter()
   {
-    if(this.next && this.formControl.control.errors==null){
+    //if(this.next && this.formControl.control.errors==null){
+    if(this.next){
       this.renderer.invokeElementMethod(this.next.el.nativeElement, 'focus');
     }
   }

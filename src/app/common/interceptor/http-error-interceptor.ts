@@ -41,7 +41,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
                     reason: error && error.message ? error.message: '',
                     status: error.status
                 };
-                this.errorDialogService.openErrorModal(error && error.message ? error.message: '');
+                this.errorDialogService.openErrorModal("Ocurrió un error al consultar la información");
                 return throwError(error);
             }));
     }

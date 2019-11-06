@@ -69,6 +69,11 @@ export class ApiService {
       }
     ])*/
   }
+  public retirar() {
+    const headers = new HttpHeaders()
+      .set("Content-Type", "application/json");
+    return this.httpClient.post("http://localhost:8034/maestras/retiros", {headers});
+  }
   public getRetiros() {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
