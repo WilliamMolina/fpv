@@ -17,6 +17,8 @@ import { SeleccionManualComponent } from './dialogs/seleccion-manual/seleccion-m
 import { AlertComponent } from './common/alert/alert.component';
 import { HttpConfigInterceptor } from './common/interceptor/http-error-interceptor';
 import { GlobalErrorHandler } from './common/interceptor/error-handler';
+import { DecimalPipe, CurrencyPipe } from '@angular/common';
+import { UsdOnlyDirective } from './common/directives/currency';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { GlobalErrorHandler } from './common/interceptor/error-handler';
     AportesAfectadosComponent,
     NavbarComponent,
     SeleccionManualComponent,
-    AlertComponent
+    AlertComponent,
+    UsdOnlyDirective
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,7 @@ import { GlobalErrorHandler } from './common/interceptor/error-handler';
     FormsModule,
     HttpClientModule
   ],
-  providers: [NavigationElement, { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }],
+  providers: [NavigationElement, { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }, CurrencyPipe, DecimalPipe],
   //providers: [NavigationElement, { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }, {provide: ErrorHandler, useClass: GlobalErrorHandler}],
   entryComponents: [AportesAfectadosComponent, SeleccionManualComponent, AlertComponent],
   bootstrap: [AppComponent]

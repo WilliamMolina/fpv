@@ -379,7 +379,9 @@ export class AppComponent extends FormComponent implements OnInit {
     });
     console.log(this.sa);
   }
-
+  limpiar(){
+    this.fpvform.reset();
+  }
   get sa() {
     return this.fpvform.get('subcuentasArray') as FormArray;
   }

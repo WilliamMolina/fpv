@@ -114,7 +114,7 @@
               </td>
               <td>
                 <mat-form-field class="campo">
-                  <input class="valor-retiro-input" formControlName="valor" navigation matInput placeholder="Valor Retiro">
+                  <input class="valor-retiro-input" formControlName="valor" navigation matInput placeholder="Valor Retiro" usd-only>
                 </mat-form-field>
               </td>
             </tr>
@@ -201,10 +201,10 @@
               <td>{{subcuenta.saldoCanje | currency}}</td>
               <td>{{subcuenta.aportesSinHistoria | currency}}</td>
               <td>{{subcuenta.disponiblePortafolioEstable | currency}}</td>
-              <td>{{i}}</td>
+              <td>{{subcuenta.disponibleConsolidado | currency}}</td>
               <td [formGroup]="sa.controls[i]">
                 <mat-form-field class="campo">
-                  <input class="number" type="text" navigation matInput formControlName="value">
+                  <input class="number" type="text" navigation matInput formControlName="value" usd-only>
                 </mat-form-field>
               </td>
             </tr>
@@ -305,6 +305,7 @@
           <button mat-flat-button color="primary" (click)="openDialog()">Ver Aportes Afectados</button>&nbsp;
           <button mat-flat-button color="primary" (click)="openDialogManual()">Selección Manual</button>
           <button mat-flat-button color="primary" (click)="openInfoModal()">Mostrar error</button>
+          <button mat-flat-button color="primary" (click)="limpiar()">Limpiar</button>
       </tr>
       <tr *ngIf="showResumen">
         <td colspan="2">
