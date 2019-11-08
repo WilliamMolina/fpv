@@ -5,9 +5,9 @@
     Retiros Parcial de Fondos de Pensiones Voluntarias
   </div>
   <div class="forma">
-    <table>
+    <table class="table">
       <tr>
-        <td colspan="2">
+        <td colspan="2" class="td_padding">
           <table class="contenido">
             <tr>
               <td width="34%">
@@ -45,8 +45,8 @@
         </td>
       </tr>
       <tr>
-        <td colspan="2">
-          <h1>Identificación de la operación</h1>
+        <td colspan="2" class ="td_padding">
+          <h1 class="titulo_bloque">Identificación de la operación</h1>
           <table class="contenido">
             <tr>
               <td width="34%">
@@ -124,7 +124,7 @@
                   <input class="number" matInput navigation placeholder="Nro Volante" formControlName="nroVolante">
                 </mat-form-field>
               </td>
-              <td colspan="2">
+              <td colspan="1">
                 <mat-checkbox style="font-size: 9px;">
                   Fondo Externo
                 </mat-checkbox>
@@ -133,9 +133,7 @@
                 </mat-form-field>
                 <span class="descripcion_campo">{{fondoExterno.nombre}}</span>
               </td>
-            </tr>
-            <tr>
-              <td colspan="3">
+              <td colspan="1">
                 <mat-form-field class="campo">
                   <input class="text" tab-directive navigation type="text" matInput formControlName="fPagoControl"
                     [matAutocomplete]="fpagocomplete" [value]="formaPago.id" placeholder="Forma de Pago">
@@ -150,14 +148,31 @@
                 <mat-form-field class="plan-inversion info_field description_encargo">
                   <input matInput placeholder="Descripción Forma de Pago" readonly tabindex="-1" [value]="formaPago.descripcion">
                 </mat-form-field>
-              </td>
+              </td> 
+            </tr>
+            <tr>
+              <!--<td colspan="1">
+                <mat-form-field class="campo">
+                  <input class="text" tab-directive navigation type="text" matInput formControlName="fPagoControl"
+                    [matAutocomplete]="fpagocomplete" [value]="formaPago.id" placeholder="Forma de Pago">
+                  <mat-autocomplete panelWidth="auto" autoActiveFirstOption #fpagocomplete="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredFPago | async"
+                      (onSelectionChange)="selectFPago($event, option)" [value]="option.id">
+                      {{option.id + ' - ' + option.descripcion}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field class="plan-inversion info_field description_encargo">
+                  <input matInput placeholder="Descripción Forma de Pago" readonly tabindex="-1" [value]="formaPago.descripcion">
+                </mat-form-field>
+              </td> -->
             </tr>
           </table>
         </td>
       </tr>
       <tr>
-        <td colspan="2">
-          <h1>Saldo del Encargo</h1>
+        <td colspan="2" class="td_padding">
+          <h1 class="titulo_bloque">Saldo del Encargo</h1>
           <div class="saldos">
             <mat-form-field class="info_field description_field center">
               <input readonly tabindex="-1" tab-directive type="text" placeholder="Saldo total" matInput
@@ -179,8 +194,8 @@
         </td>
       </tr>
       <tr>
-        <td colspan="2">
-          <h1>Informaci&oacute;n Subcuentas</h1>
+        <td colspan="2" class="td_padding">
+          <h1 class="titulo_bloque">Informaci&oacute;n Subcuentas</h1>
           <table class="contenido">
             <thead class="center blue-header">
               <th>C&oacute;digo</th>
@@ -229,8 +244,8 @@
       </tr>
 
       <tr>
-        <td colspan="2">
-          <h1>Beneficiario del Giro</h1>
+        <td colspan="2" class="td_padding">
+          <h1 class="titulo_bloque">Beneficiario del Giro</h1>
           <table class="contenido">
             <tr>
               <td width="34%">
@@ -263,8 +278,8 @@
         </td>
       </tr>
       <tr>
-        <td colspan="2">
-          <h1>Cuenta Bancaria Pagadora</h1>
+        <td colspan="2" class="td_padding">
+          <h1 class="titulo_bloque">Cuenta Bancaria Pagadora</h1>
           <table class="contenido">
             <tr>
               <td width="34%">
