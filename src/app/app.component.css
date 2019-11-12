@@ -174,7 +174,9 @@ tr.mat-footer-row {
 .mat-form-field{
   font-size: 12px !important;
   margin-right: 20px;
-  height: 40px;
+  margin-bottom: 5px;
+  /*border: solid 2px blue;*/
+  height: 35px;
 }
 
 .prueba{
@@ -293,7 +295,7 @@ tr.mat-footer-row {
 }
 
 .td_padding{
-  padding: 4px 10px 0px 30px;
+  padding: 4px 10px 10px 30px;
 }
 .table {
   border-collapse: separate;
@@ -302,4 +304,8 @@ tr.mat-footer-row {
 .titulo_bloque {
   padding-bottom:0px;
   margin: 0px 0px 0px -10px;
+}
+#top_error{
+  /*border: 2px saddlebrown solid !important;*/
+  margin-top:18px;
 }

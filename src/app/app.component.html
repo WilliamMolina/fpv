@@ -23,7 +23,7 @@
                     <!-- First section-END -->
                   </mat-autocomplete>
                 </mat-form-field>
-                <mat-form-field class="description_encargo info_field">
+                <mat-form-field class="description_encargo info_field " id="top_error">
                   <input class="text" [value]="oficina.nombre" matInput placeholder="Nombre oficina" />
                 </mat-form-field>
               </td>
@@ -66,7 +66,7 @@
                   <input matInput navigation formControlName="codigoVerificacion">
                   <mat-error *ngIf="codigoVerificacion.errors?.match">Código incorrecto</mat-error>
                 </mat-form-field>
-                <mat-form-field class="plan-inversion info_field description_encargo">
+                <mat-form-field class="plan-inversion info_field description_encargo" id="top_error">
                   <input matInput placeholder="Descripción Encargo" readonly tabindex="-1" [value]="encargo.persona">
                 </mat-form-field>
               </td>
@@ -208,7 +208,7 @@
               <th>Disponible Consolidado</th>
               <th>Valor a Retirar</th>
             </thead>
-            <tr *ngFor="let subcuenta of subcuentas; let i=index" class="number">
+            <!--<tr *ngFor="let subcuenta of subcuentas; let i=index" class="number">
               <td>{{subcuenta.codigo}}</td>
               <td>{{subcuenta.descripcion}}</td>
               <td>{{subcuenta.permiteRetiros}}</td>
@@ -222,7 +222,7 @@
                   <input class="number" type="text" navigation matInput formControlName="value" usd-only>
                 </mat-form-field>
               </td>
-            </tr>
+            </tr> -->
             <tr class="number">
               <td></td>
               <td></td>

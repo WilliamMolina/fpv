@@ -219,7 +219,8 @@ export class AppComponent extends FormComponent implements OnInit {
       nroVolante: new FormControl(),
       fondoExternoNit: new FormControl(),
       subcuentasArray: this._formBuilder.array([]),
-      subcuentaControl: new FormControl()
+      subcuentaControl: new FormControl(),
+      value: new FormControl()
     });
 
     this.apiService.getNews().subscribe((data: HttpResponse) => {
