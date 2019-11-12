@@ -12,7 +12,8 @@ body {
   height: 100%;
 }
 * {
-  font-family: 'Krub', sans-serif;
+  font-family: 'Krub', sans-serif;  
+  /*color: #002F58;*/
 } 
 body {
   margin: 0px;

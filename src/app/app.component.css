@@ -309,3 +309,13 @@ tr.mat-footer-row {
   /*border: 2px saddlebrown solid !important;*/
   margin-top:18px;
 }
+::ng-deep .mat-form-field-underline {
+  background-color: blue !important; 
+  background: linear-gradient(to right, #01588D, #02A2E3);
+  height: 3px !important;
+  max-height: 3px !important;
+}
+.mat-flat-button{
+  background-color:#002F58;
+  color: white !important;
+} 
