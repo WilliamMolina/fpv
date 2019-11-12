@@ -177,6 +177,8 @@ tr.mat-footer-row {
   margin-bottom: 5px;
   /*border: solid 2px blue;*/
   height: 35px;
+  color: #002f57;
+  /*font-size: 9pt !important; */
 }
 
 .prueba{
@@ -258,7 +260,6 @@ tr.mat-footer-row {
 .info_field ::ng-deep .mat-form-field-underline {
   display: none;
 }
-
 .description_field{
   width: 220px !important;
 }
@@ -310,7 +311,6 @@ tr.mat-footer-row {
   margin-top:18px;
 }
 ::ng-deep .mat-form-field-underline {
-  background-color: blue !important; 
   background: linear-gradient(to right, #01588D, #02A2E3);
   height: 3px !important;
   max-height: 3px !important;
@@ -319,3 +319,7 @@ tr.mat-footer-row {
   background-color:#002F58;
   color: white !important;
 } 
+::ng-deep .mat-error-underline {
+  display: none;
+}
+

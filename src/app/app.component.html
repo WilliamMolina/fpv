@@ -12,7 +12,7 @@
             <tr>
               <td width="34%">
                 <mat-form-field class="campo">
-                  <input class="number" tab-directive type="text" placeholder="oficina" matInput
+                  <input class="number" tab-directive type="text" placeholder="oficina*" matInput
                     formControlName="oficinaCtrl" navigation [matAutocomplete]="auto" [value]="oficina.id">
                   <mat-error *ngIf="oficinaCtrl.errors?.match">Selecione un valor de la lista</mat-error>
                   <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
@@ -51,7 +51,7 @@
             <tr>
               <td width="34%">
                 <mat-form-field class="titular_info">
-                  <input class="number" tab-directive navigation type="text" placeholder="Encargo" matInput
+                  <input class="number" tab-directive navigation type="text" placeholder="Encargo*" matInput
                     formControlName="encargosCtrl" [matAutocomplete]="encargocomplete" [value]="encargo.plan">
                   <mat-autocomplete panelWidth="auto" autoActiveFirstOption #encargocomplete="matAutocomplete">
                     <mat-option *ngFor="let option of filteredEncargos | async"
@@ -114,7 +114,7 @@
               </td>
               <td>
                 <mat-form-field class="campo">
-                  <input class="valor-retiro-input" formControlName="valor" navigation matInput placeholder="Valor Retiro" usd-only>
+                  <input class="valor-retiro-input" formControlName="valor" navigation matInput placeholder="Valor Retiro*" usd-only>
                 </mat-form-field>
               </td>
             </tr>

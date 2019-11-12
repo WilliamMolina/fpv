@@ -13,8 +13,7 @@ body {
 }
 * {
   font-family: 'Krub', sans-serif;  
-  /*color: #002F58;*/
-} 
+  } 
 body {
   margin: 0px;
   font-size: smaller;
@@ -84,7 +83,8 @@ div.forma h1 {
 }
 
 .mat-form-field-label{
-  color:  #003056 !important;
+  color:  #9B9B9b !important;
+  /*font-size: 10pt !important;*/
 }
 
 

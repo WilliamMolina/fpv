@@ -28,6 +28,7 @@ import { FormCustomValidators } from './common/validators/form-validators';
 })
 
 export class AppComponent extends FormComponent implements OnInit {
+  public limp: number = 0;
   aportesAfectados: AporteAfectado[] = [
     {
       nroAporte: "332",
@@ -225,6 +226,7 @@ export class AppComponent extends FormComponent implements OnInit {
 
     this.apiService.getNews().subscribe((data: HttpResponse) => {
       this.ciudades = data.data;
+      console.log("datos " + data);
       this.fpvform.get('oficinaCtrl').setValidators([Validators.required, FormCustomValidators.valueSelected(this.ciudades)]);
       this.filteredOptions = this.fpvform.get('oficinaCtrl').valueChanges.pipe(
         startWith(''),
@@ -368,25 +370,36 @@ export class AppComponent extends FormComponent implements OnInit {
     return this.ciudades.filter(option => String(option.id).indexOf(filterValue) === 0);
   }
   private _filterFPago(value: string): string[] {
+    if (this.limp == 0) {
     const filterValue = value.toLowerCase();
     return this.formasPago.filter(option => (option.id + ' - ' + option.descripcion).toLowerCase().indexOf(filterValue) !== -1);
+    }
   }
 
   private _filterEncargos(value: string): string[] {
+    if (this.limp == 0) {
     const filterValue = String(value).toLowerCase();
     return this.encargos.filter(option => String(option.plan).toLowerCase().indexOf(filterValue) === 0);
+    }
   }
   private _filterTipoRetiro(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.retiros.filter(option => (option.codigo + ' - ' + option.nombre).toLowerCase().indexOf(filterValue) === 0);
+    if (this.limp == 0) {
+      const filterValue = value.toLowerCase();
+      return this.retiros.filter(option => (option.codigo + ' - ' + option.nombre).toLowerCase().indexOf(filterValue) === 0);
+    }
+
   }
   private _filterTercero(value: string): string[] {
+    if (this.limp == 0) {
     const filterValue = value.toLowerCase();
     return this.terceros.filter(option => option.identificacion.toLowerCase().indexOf(filterValue) === 0);
+    }
   }
   private _filterCPagadora(value: string): string[] {
+    if (this.limp == 0) {
     const filterValue = value.toLowerCase();
     return this.cuentasPagadoras.filter(option => option.numero.toLowerCase().indexOf(filterValue) === 0);
+    }
   }
   getTotalCost(): number {
     return this.total;
@@ -411,6 +424,7 @@ export class AppComponent extends FormComponent implements OnInit {
     console.log(this.sa);
   }
   limpiar() {
+    this.limp = 1;
     this.fpvform.reset();
   }
   get sa() {
