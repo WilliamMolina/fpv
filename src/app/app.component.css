@@ -123,6 +123,7 @@
 .valor-retiro-input{
   text-align: right !important;
 }
+
 .nit-fex{
   margin-left: 20px;
 }
@@ -249,8 +250,11 @@ tr.mat-footer-row {
   margin-bottom: 0px;
   display: table-cell;
   vertical-align: middle;
+  
+  }
+.td_operacion {
+  margin-top: 0px !important;
 }
-
 .contenido{
   margin-top: 0px;
   margin-bottom: 0px;
@@ -303,8 +307,9 @@ tr.mat-footer-row {
   border-spacing: 10px 7px;
 }
 .titulo_bloque {
-  padding-bottom:0px;
+  padding-bottom:10px;
   margin: 0px 0px 0px -10px;
+  font-family: 'Open Sans', sans-serif;
 }
 #top_error{
   /*border: 2px saddlebrown solid !important;*/
@@ -322,4 +327,3 @@ tr.mat-footer-row {
 ::ng-deep .mat-error-underline {
   display: none;
 }
-

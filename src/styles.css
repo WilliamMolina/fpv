@@ -12,7 +12,8 @@ body {
   height: 100%;
 }
 * {
-  font-family: 'Krub', sans-serif;  
+  /*font-family: 'Krub', sans-serif;*/
+  font-family: 'Open Sans', sans-serif;  
   } 
 body {
   margin: 0px;
@@ -77,7 +78,7 @@ div.forma h1 {
   color: #505050;
   font-size: 16px;
   margin-top: 0px;
-  font-family: 'Krub';
+  font-family: 'Open Sans', sans-serif;
   font-weight: bold;
   margin-bottom: 0px;
 }

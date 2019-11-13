@@ -49,7 +49,7 @@
           <h1 class="titulo_bloque">Identificación de la operación</h1>
           <table class="contenido">
             <tr>
-              <td width="34%">
+              <td class="td_operacion" width="34%">
                 <mat-form-field class="titular_info">
                   <input class="number" tab-directive navigation type="text" placeholder="Encargo*" matInput
                     formControlName="encargosCtrl" [matAutocomplete]="encargocomplete" [value]="encargo.plan">
@@ -70,7 +70,7 @@
                   <input matInput placeholder="Descripción Encargo" readonly tabindex="-1" [value]="encargo.persona">
                 </mat-form-field>
               </td>
-              <td width="33%">
+              <td class="td_operacion" width="33%">
                 <mat-form-field class="info_field titular_info">
                   <input matInput readonly tabindex="-1" [value]="encargo.identificacion" placeholder="Titular">
                 </mat-form-field>
@@ -78,7 +78,7 @@
                   <input matInput placeholder="Nombre Titular" readonly tabindex="-1" [value]="encargo.nombre">
                 </mat-form-field>
               </td>
-              <td width="33%">
+              <td class="td_operacion" width="33%">
                 <mat-form-field class="info_field campo">
                   <input matInput readonly tabindex="-1" [value]="encargo.codigoPlanInversion" placeholder="Plan de Inversión">
                 </mat-form-field>
@@ -125,7 +125,7 @@
                 </mat-form-field>
               </td>
               <td colspan="1">
-                <mat-checkbox style="font-size: 9px;">
+                <mat-checkbox color="primary" style="font-size: 9px;">
                   Fondo Externo
                 </mat-checkbox>
                 <mat-form-field class="nit-fex campo">

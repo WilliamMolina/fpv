@@ -1,5 +1,5 @@
 .navbar{
-    background-color: #003056;
+    background-color: #003057;
     width: 100%;
     height: 60px;
     border-bottom: 1px solid #003060;
@@ -10,11 +10,12 @@
 .title img.logo{
     margin-top: 5px;
     margin-left: 50px;
-    height: 50px;
-    width: 146px;
+    /*height: 50px;
+    width: 146px;*/
+    padding: 10px 10px 10px 10px;
+    height: 34px;
+    width: 100px;
 }
-
-
 .barra_img{
     height: 40px;
     width: 40px;
