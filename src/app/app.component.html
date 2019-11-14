@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<form [formGroup]="fpvform" novalidate>
+<form [formGroup]="fpvform">
 <div class="body_page">
   <div class="title_page">
     Retiros Parcial de Fondos de Pensiones Voluntarias
@@ -14,7 +14,6 @@
                 <mat-form-field class="campo">
                   <input class="number" tab-directive type="text" placeholder="oficina*" matInput
                     formControlName="oficinaCtrl" navigation [matAutocomplete]="auto" [value]="oficina.id">
-                  <mat-error *ngIf="oficinaCtrl.errors?.match">Selecione un valor de la lista</mat-error>
                   <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                     <mat-option (onSelectionChange)="select($event, option)" *ngFor="let option of filteredOptions | async"
                       [value]="option.id">
@@ -60,11 +59,9 @@
                     </mat-option>
                     <!-- First section-END -->
                   </mat-autocomplete>
-                  <mat-error *ngIf="encargosCtrl.errors?.match">Selecione el encargo</mat-error>
                 </mat-form-field>
                 <mat-form-field class="verification">
                   <input matInput navigation formControlName="codigoVerificacion">
-                  <mat-error *ngIf="codigoVerificacion.errors?.match">Código incorrecto</mat-error>
                 </mat-form-field>
                 <mat-form-field class="plan-inversion info_field description_encargo" id="top_error">
                   <input matInput placeholder="Descripción Encargo" readonly tabindex="-1" [value]="encargo.persona">
@@ -106,10 +103,10 @@
               </td>
               <td>
                 <mat-form-field class="plan-inversion info_field titular_info">
-                  <input matInput placeholder="Tipo Mtvo" readonly tabindex="-1" [value]="tipoRetiro.tpreTpmvTes">
+                  <input matInput placeholder="Tipo Mtvo" readonly tabindex="-1" [value]="tipoRetiro.tipoMovimiento?.id">
                 </mat-form-field>
                 <mat-form-field class="plan-inversion info_field description_field">
-                  <input matInput placeholder="Descripción Tipo Mtvo" readonly tabindex="-1" [value]="tipoRetiro.nombreTpmv">
+                  <input matInput placeholder="Descripción Tipo Mtvo" readonly tabindex="-1" [value]="tipoRetiro.tipoMovimiento?.descripcion">
                 </mat-form-field>
               </td>
               <td>
@@ -208,7 +205,7 @@
               <th>Disponible Consolidado</th>
               <th>Valor a Retirar</th>
             </thead>
-            <!--<tr *ngFor="let subcuenta of subcuentas; let i=index" class="number">
+            <tr *ngFor="let subcuenta of subcuentas; let i=index" class="number">
               <td>{{subcuenta.codigo}}</td>
               <td>{{subcuenta.descripcion}}</td>
               <td>{{subcuenta.permiteRetiros}}</td>
@@ -222,7 +219,7 @@
                   <input class="number" type="text" navigation matInput formControlName="value" usd-only>
                 </mat-form-field>
               </td>
-            </tr> -->
+            </tr>
             <tr class="number">
               <td></td>
               <td></td>
@@ -316,10 +313,10 @@
         </td>
       </tr>
       <tr>
-          <button mat-flat-button  (click)="aplicar()">Afectar Aportes Automático</button>&nbsp;
+          <button type="button" mat-flat-button  (click)="aplicar()">Aplicar</button>&nbsp;
           <!--<button mat-flat-button color="primary" (click)="openDialog()">Ver Aportes Afectados</button>&nbsp;-->
           <!--<button mat-flat-button color="primary" (click)="openDialogManual()">Selección Manual</button>-->
-          <button mat-flat-button  (click)="limpiar()">Limpiar</button>
+          <button type="button" mat-flat-button  (click)="limpiar()">Limpiar</button>
       </tr>
       <tr *ngIf="showResumen">
         <td colspan="2">

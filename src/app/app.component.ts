@@ -28,7 +28,6 @@ import { FormCustomValidators } from './common/validators/form-validators';
 })
 
 export class AppComponent extends FormComponent implements OnInit {
-  public limp: number = 0;
   aportesAfectados: AporteAfectado[] = [
     {
       nroAporte: "332",
@@ -220,14 +219,12 @@ export class AppComponent extends FormComponent implements OnInit {
       nroVolante: new FormControl(),
       fondoExternoNit: new FormControl(),
       subcuentasArray: this._formBuilder.array([]),
-      subcuentaControl: new FormControl(),
-      value: new FormControl()
+      subcuentaControl: new FormControl()
     });
 
     this.apiService.getNews().subscribe((data: HttpResponse) => {
       this.ciudades = data.data;
-      console.log("datos " + data);
-      this.fpvform.get('oficinaCtrl').setValidators([Validators.required, FormCustomValidators.valueSelected(this.ciudades)]);
+      this.oficinaCtrl.setValidators([Validators.required, FormCustomValidators.valueSelected(this.ciudades)]);
       this.filteredOptions = this.fpvform.get('oficinaCtrl').valueChanges.pipe(
         startWith(''),
         map(value => this._filter(value))
@@ -239,7 +236,11 @@ export class AppComponent extends FormComponent implements OnInit {
     });
     this.apiService.getEncargos().subscribe((data: HttpResponse) => {
       this.encargos = data.data;
-      this.fpvform.get('encargosCtrl').setValidators([Validators.required, FormCustomValidators.valueSelected(this.encargos, 'plan')]);
+      this.encargosCtrl.setValidators([
+        Validators.required,
+        FormCustomValidators.valueSelected(this.encargos, 'plan')
+      ]);
+
       this.filteredEncargos = this.fpvform.get('encargosCtrl').valueChanges.pipe(
         startWith(''),
         map(value => this._filterEncargos(value))
@@ -247,6 +248,11 @@ export class AppComponent extends FormComponent implements OnInit {
     });
     this.apiService.getRetiros().subscribe((data: HttpResponse) => {
       this.retiros = data.data;
+      this.tRetiroControl.setValidators([
+        Validators.required,
+        FormCustomValidators.valueSelected(this.retiros, 'codigo')
+      ]);
+      this.tRetiroControl.updateValueAndValidity();
       this.filteredTipoRetiro = this.fpvform.get('tRetiroControl').valueChanges.pipe(
         startWith(''),
         map(value => this._filterTipoRetiro(value))
@@ -254,6 +260,11 @@ export class AppComponent extends FormComponent implements OnInit {
     });
     this.apiService.getTerceros().subscribe((data) => {
       this.terceros = data;
+      this.terceroControl.setValidators([
+        Validators.required,
+        FormCustomValidators.valueSelected(this.terceros, 'identificacion')
+      ]);
+      this.terceroControl.updateValueAndValidity();
       this.filteredTerceros = this.fpvform.get('terceroControl').valueChanges.pipe(
         startWith(''),
         map(value => this._filterTercero(value))
@@ -261,6 +272,11 @@ export class AppComponent extends FormComponent implements OnInit {
     });
     this.apiService.getCuentasPagadoras().subscribe((data) => {
       this.cuentasPagadoras = data;
+      this.cPagadoraControl.setValidators([
+        Validators.required,
+        FormCustomValidators.valueSelected(this.cuentasPagadoras, 'numero')
+      ]);
+      this.cPagadoraControl.updateValueAndValidity();
       this.filteredCPagadoras = this.fpvform.get('cPagadoraControl').valueChanges.pipe(
         startWith(''),
         map(value => this._filterCPagadora(value))
@@ -268,6 +284,11 @@ export class AppComponent extends FormComponent implements OnInit {
     });
     this.apiService.getFormasPago().subscribe((data: HttpResponse) => {
       this.formasPago = data.data;
+      this.fPagoControl.setValidators([
+        Validators.required,
+        FormCustomValidators.valueSelected(this.formasPago)
+      ]);
+      this.fPagoControl.updateValueAndValidity();
       this.filteredFPago = this.fpvform.get('fPagoControl').valueChanges.pipe(
         startWith(''),
         map(value => this._filterFPago(value))
@@ -275,10 +296,45 @@ export class AppComponent extends FormComponent implements OnInit {
     });
   }
 
-  onKeydown(event, index) {
-    if (index + 1 < this.navegacion.length) {
-      //this.renderer.invokeElementMethod(this.navegacion[index + 1]._elementRef.nativeElement, 'focus');
-    }
+  limpiarCampos(): void {
+    this.encargo = {
+      numero: "",
+      codigoVerificacion: null,
+      persona: "",
+      identificacion: "",
+      nombre: "",
+      codigoPlanInversion: "",
+      nombrePlanInversion: "",
+      saldo: {
+        total: null,
+        enCanje: null,
+        aportesSinHistoria: null,
+        disponiblePortafolioEstable: null
+      }
+    };
+    this.oficina = { "codigo": "30", "nombre": "BOGOTÁ - MORATO" };
+    this.tipoRetiro = {
+      codigo: "",
+      nombre: "",
+      tpmv: "",
+      nombreTpmv: ""
+    };
+    this.beneficiario = {
+      identificacion: "",
+      tipoId: "",
+      descripcion: "",
+      digito: ""
+    };
+    this.cuenta = {
+      codigoBanco: "",
+      nombreBanco: "",
+      numero: "",
+      tipo: ""
+    };
+    this.formaPago = {
+      "id": "CH",
+      "descripcion": ""
+    };
   }
   afectarAportes(): void {
     this.showResumen = true;
@@ -344,9 +400,21 @@ export class AppComponent extends FormComponent implements OnInit {
         disponibleConsolidado: 0.00,
         valorARetirar: 0,
       }];
+      this.sa.clear();
+      this.sa.push(this._formBuilder.group({
+        value: ['']
+      }));
+      this.sa.push(this._formBuilder.group({
+        value: ['']
+      }));
       // Fin temporal
       this.mostrarEncargos = false;
-      this.fpvform.get('codigoVerificacion').setValidators([Validators.required, FormCustomValidators.verificationCode(this.encargo.codigoVerificacion)]);
+
+      this.codigoVerificacion.setValidators([
+        Validators.required,
+        FormCustomValidators.verificationCode(this.encargo.codigoVerificacion)]
+      );
+
       this.fpvform.get('codigoVerificacion').updateValueAndValidity();
     }
 
@@ -370,36 +438,25 @@ export class AppComponent extends FormComponent implements OnInit {
     return this.ciudades.filter(option => String(option.id).indexOf(filterValue) === 0);
   }
   private _filterFPago(value: string): string[] {
-    if (this.limp == 0) {
     const filterValue = value.toLowerCase();
     return this.formasPago.filter(option => (option.id + ' - ' + option.descripcion).toLowerCase().indexOf(filterValue) !== -1);
-    }
   }
 
   private _filterEncargos(value: string): string[] {
-    if (this.limp == 0) {
     const filterValue = String(value).toLowerCase();
     return this.encargos.filter(option => String(option.plan).toLowerCase().indexOf(filterValue) === 0);
-    }
   }
   private _filterTipoRetiro(value: string): string[] {
-    if (this.limp == 0) {
-      const filterValue = value.toLowerCase();
-      return this.retiros.filter(option => (option.codigo + ' - ' + option.nombre).toLowerCase().indexOf(filterValue) === 0);
-    }
-
+    const filterValue = value.toLowerCase();
+    return this.retiros.filter(option => (option.codigo + ' - ' + option.nombre).toLowerCase().indexOf(filterValue) === 0);
   }
   private _filterTercero(value: string): string[] {
-    if (this.limp == 0) {
     const filterValue = value.toLowerCase();
     return this.terceros.filter(option => option.identificacion.toLowerCase().indexOf(filterValue) === 0);
-    }
   }
   private _filterCPagadora(value: string): string[] {
-    if (this.limp == 0) {
     const filterValue = value.toLowerCase();
     return this.cuentasPagadoras.filter(option => option.numero.toLowerCase().indexOf(filterValue) === 0);
-    }
   }
   getTotalCost(): number {
     return this.total;
@@ -424,8 +481,8 @@ export class AppComponent extends FormComponent implements OnInit {
     console.log(this.sa);
   }
   limpiar() {
-    this.limp = 1;
     this.fpvform.reset();
+    this.limpiarCampos();
   }
   get sa() {
     return this.fpvform.get('subcuentasArray') as FormArray;
@@ -438,6 +495,18 @@ export class AppComponent extends FormComponent implements OnInit {
   }
   get codigoVerificacion() {
     return this.fpvform.get('codigoVerificacion') as FormControl;
+  }
+  get tRetiroControl() {
+    return this.fpvform.get('tRetiroControl') as FormControl;
+  }
+  get terceroControl() {
+    return this.fpvform.get('terceroControl') as FormControl;
+  }
+  get cPagadoraControl() {
+    return this.fpvform.get('cPagadoraControl') as FormControl;
+  }
+  get fPagoControl() {
+    return this.fpvform.get('fPagoControl') as FormControl;
   }
 
   openDialog(): void {
@@ -466,18 +535,22 @@ export class AppComponent extends FormComponent implements OnInit {
   }
 
   aplicar() {
-    /*if (this.fpvform.valid) {
-      this.apiService.retirar().subscribe((data: HttpResponse) => {
-        if (data.status == "OK") {
-          this.alertService.openInfoModal(data.data.toString());
-        } else {
-          this.alertService.openErrorModal(data.data.toString());
-        }
-      });
+    if (this.fpvform.valid) {
+      if (this.valorRestante() != 0) {
+        this.alertService.openErrorModal("El valor restante debe ser igual a cero.");
+      } else {
+        this.apiService.retirar().subscribe((data: HttpResponse) => {
+          if (data.status == "OK") {
+            this.alertService.openInfoModal(data.data.toString());
+            this.limpiar();
+          } else {
+            this.alertService.openErrorModal(data.data.toString());
+          }
+        });
+      }
     } else {
       this.alertService.openErrorModal("Por favor complete todos los campos obligatorios");
-    }*/
+    }
   }
 
 }
-

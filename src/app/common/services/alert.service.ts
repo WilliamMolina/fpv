@@ -18,7 +18,7 @@ export class AlertService {
       data: new AlertData({
         title: 'INFO',
         content: message,
-        closeButtonLabel: 'Close',
+        closeButtonLabel: 'Aceptar',
         alertType: AlertType.INFO
       })
     });
@@ -27,7 +27,21 @@ export class AlertService {
       console.log('After Closed >>> ', result);
     });
   }
-  openWarningModal() { }
+  openWarningModal(message: string) {
+    const dialogRef = this.dialog.open(AlertComponent, {
+      width: '300px',
+      data: new AlertData({
+        title: 'INFO',
+        content: message,
+        closeButtonLabel: 'Cerrar',
+        alertType: AlertType.WARNING
+      })
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('After Closed >>> ', result);
+    });
+   }
   openErrorModal(message: string) {
     if (this.dialog.openDialogs.length == 0) {
       const dialogRef = this.dialog.open(AlertComponent, {
@@ -35,7 +49,7 @@ export class AlertService {
         data: new AlertData({
           title: 'ERROR',
           content: message,
-          closeButtonLabel: 'Close',
+          closeButtonLabel: 'Cerrar',
           alertType: AlertType.ERROR
         })
       });
@@ -45,5 +59,5 @@ export class AlertService {
       });
     }
   }
-  openConfirmModal() { }
 }
+
