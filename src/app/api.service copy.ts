@@ -71,8 +71,8 @@ export class ApiService {
   public getEncargos() {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
-    return this.httpClient.get("http://localhost:8034/maestras/encargos", {headers});
-    /*return of({
+    //return this.httpClient.get("http://localhost:8034/maestras/encargos", {headers});
+    return of({
       "status": "OK",
       "data": [
           {
@@ -576,7 +576,7 @@ export class ApiService {
               "estado": "ACT"
           }
       ]
-  })*/
+  })
   }
   public retirar(retiro: RetiroFPV) {
     const headers = new HttpHeaders()
@@ -586,8 +586,8 @@ export class ApiService {
   public getRetiros() {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
-    return this.httpClient.get("http://localhost:8034/maestras/tiposretiro", {headers});
-    /*return of({
+    //return this.httpClient.get("http://localhost:8034/maestras/tiposretiro", {headers});
+    return of({
       "status": "OK",
       "data": [
           {
@@ -745,7 +745,7 @@ export class ApiService {
               }
           }
       ]
-  })*/
+  })
   }
   public getTerceros() {
     const headers = new HttpHeaders()
@@ -776,7 +776,7 @@ export class ApiService {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
     //return this.httpClient.get("http://localhost:8080/fpv/cuentaspagadoras.json", {headers});
-   return of([
+    return of([
       {
         "numero": "270063696",
         "tipo": "CUENTA CORRIENTE",
@@ -794,8 +794,8 @@ export class ApiService {
   public getFormasPago() {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
-    return this.httpClient.get("http://localhost:8034/maestras/formaspago", { headers });
-    /*return of({
+    //return this.httpClient.get("http://localhost:8034/maestras/formaspago", { headers });
+    return of({
       "status": "OK",
       "data": [
           {
@@ -1951,6 +1951,6 @@ export class ApiService {
               "fpagExtGmf": "N"
           }
       ]
-  })*/
+  })
   }
 }

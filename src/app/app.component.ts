@@ -20,6 +20,7 @@ import { SeleccionManualComponent } from './dialogs/seleccion-manual/seleccion-m
 import { HttpResponse } from './models/HttpResponse';
 import { AlertService } from './common/services/alert.service';
 import { FormCustomValidators } from './common/validators/form-validators';
+import { RetiroFPV } from './models/retiro-fpv';
 
 @Component({
   selector: 'app-root',
@@ -312,7 +313,7 @@ export class AppComponent extends FormComponent implements OnInit {
         disponiblePortafolioEstable: null
       }
     };
-    this.oficina = { "codigo": "30", "nombre": "BOGOTÁ - MORATO" };
+    this.oficina = { "codigo": "", "nombre": "" };
     this.tipoRetiro = {
       codigo: "",
       nombre: "",
@@ -379,17 +380,6 @@ export class AppComponent extends FormComponent implements OnInit {
         }
       };
       this.subcuentas = [{
-        codigo: 1,
-        descripcion: "FUNCIONARIO",
-        permiteRetiros: "S",
-        saldoTotal: 2292877.93,
-        saldoCanje: 0.00,
-        aportesSinHistoria: 0.00,
-        disponiblePortafolioEstable: 2292877.93,
-        disponibleConsolidado: 0.00,
-        valorARetirar: 0,
-      },
-      {
         codigo: 1,
         descripcion: "FUNCIONARIO",
         permiteRetiros: "S",
@@ -539,7 +529,7 @@ export class AppComponent extends FormComponent implements OnInit {
       if (this.valorRestante() != 0) {
         this.alertService.openErrorModal("El valor restante debe ser igual a cero.");
       } else {
-        this.apiService.retirar().subscribe((data: HttpResponse) => {
+        this.apiService.retirar(this.construirInformacion()).subscribe((data: HttpResponse) => {
           if (data.status == "OK") {
             this.alertService.openInfoModal(data.data.toString());
             this.limpiar();
@@ -550,6 +540,21 @@ export class AppComponent extends FormComponent implements OnInit {
       }
     } else {
       this.alertService.openErrorModal("Por favor complete todos los campos obligatorios");
+    }
+  }
+
+  construirInformacion():RetiroFPV{
+    let valor = this.fpvform.value;
+    return {
+      "valor": this.valorNumerico(valor.valor),
+      "oficina": valor.oficinaCtrl,
+      "encargo": valor.encargosCtrl,
+      "tRetiro": valor.tRetiroControl,
+      "tercero": valor.terceroControl,
+      "cPagadora": valor.cPagadoraControl,
+      "fPago": valor.fPagoControl,
+      "nroVolante": valor.nroVolante,
+      "fondoExternoNit": valor.fondoExternoNit
     }
   }
 

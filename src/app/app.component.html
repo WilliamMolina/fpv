@@ -1,154 +1,175 @@
 <app-navbar></app-navbar>
+<div class="contenedor_botones">
+  <table  style="border-radius: 2px; border:1px solid #999899; float: right; width:180px; -webkit-box-shadow: 1px 1px 5px 2px rgba(235,238,240,1);
+  -moz-box-shadow: 1px 1px 5px 2px rgba(235,238,240,1);
+  box-shadow: 1px 1px 5px 2px rgba(235,238,240,1);">
+    <tr>
+      <td class="img_boton">
+        <img (click)="limpiar()" src="../assets/delete.svg" alt="Borrar">
+      </td>
+      <td class="img_boton">
+        <img (click)="aplicar()" src="../assets/save.svg" alt="guardar">
+      </td>
+    </tr>
+  </table>
+</div>
 <form [formGroup]="fpvform">
-<div class="body_page">
-  <div class="title_page">
-    Retiros Parcial de Fondos de Pensiones Voluntarias
-  </div>
-  <div class="forma">
-    <table class="table">
-      <tr>
-        <td colspan="2" class="td_padding">
-          <table class="contenido">
-            <tr>
-              <td width="34%">
-                <mat-form-field class="campo">
-                  <input class="number" tab-directive type="text" placeholder="oficina*" matInput
-                    formControlName="oficinaCtrl" navigation [matAutocomplete]="auto" [value]="oficina.id">
-                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option (onSelectionChange)="select($event, option)" *ngFor="let option of filteredOptions | async"
-                      [value]="option.id">
-                      {{option.id}}
-                    </mat-option>
-                    <!-- First section-END -->
-                  </mat-autocomplete>
-                </mat-form-field>
-                <mat-form-field class="description_encargo info_field " id="top_error">
-                  <input class="text" [value]="oficina.nombre" matInput placeholder="Nombre oficina" />
-                </mat-form-field>
-              </td>
-              <td width="33%">
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button color="primary" class="individualRB" value="1" checked>Fecha del Fondo
-                  </mat-radio-button>
-                  <mat-radio-button color="primary" class="individualRB" value="2">Día Siguiente</mat-radio-button>
-                  <mat-radio-button color="primary" class="individualRB" value="3">Fecha Futura</mat-radio-button>
-                </mat-radio-group>
-              </td>
-              <td>
-                <mat-form-field>
-                  <input type="date" matInput placeholder="Fecha" [value]="fecha |date:'yyyy-MM-dd'">
-                </mat-form-field>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" class ="td_padding">
-          <h1 class="titulo_bloque">Identificación de la operación</h1>
-          <table class="contenido">
-            <tr>
-              <td class="td_operacion" width="34%">
-                <mat-form-field class="titular_info">
-                  <input class="number" tab-directive navigation type="text" placeholder="Encargo*" matInput
-                    formControlName="encargosCtrl" [matAutocomplete]="encargocomplete" [value]="encargo.plan">
-                  <mat-autocomplete panelWidth="auto" autoActiveFirstOption #encargocomplete="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredEncargos | async"
-                      (onSelectionChange)="selectEncargo($event, option)" [value]="option.plan">
-                      {{option.plan}}
-                    </mat-option>
-                    <!-- First section-END -->
-                  </mat-autocomplete>
-                </mat-form-field>
-                <mat-form-field class="verification">
-                  <input matInput navigation formControlName="codigoVerificacion">
-                </mat-form-field>
-                <mat-form-field class="plan-inversion info_field description_encargo" id="top_error">
-                  <input matInput placeholder="Descripción Encargo" readonly tabindex="-1" [value]="encargo.persona">
-                </mat-form-field>
-              </td>
-              <td class="td_operacion" width="33%">
-                <mat-form-field class="info_field titular_info">
-                  <input matInput readonly tabindex="-1" [value]="encargo.identificacion" placeholder="Titular">
-                </mat-form-field>
-                <mat-form-field class="plan-inversion info_field description_field">
-                  <input matInput placeholder="Nombre Titular" readonly tabindex="-1" [value]="encargo.nombre">
-                </mat-form-field>
-              </td>
-              <td class="td_operacion" width="33%">
-                <mat-form-field class="info_field campo">
-                  <input matInput readonly tabindex="-1" [value]="encargo.codigoPlanInversion" placeholder="Plan de Inversión">
-                </mat-form-field>
-                <mat-form-field class="plan-inversion info_field description_encargo">
-                  <input matInput placeholder="Nombre Plan Inversión" readonly tabindex="-1"
-                    [value]="encargo.nombrePlanInversion">
-                </mat-form-field>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <mat-form-field class="campo">
-                  <input class="text" tab-directive navigation type="text" placeholder="Tipo de Retiro" matInput
-                    formControlName="tRetiroControl" [matAutocomplete]="tiporetiro" [value]="tipoRetiro.codigo">
-                  <mat-autocomplete panelWidth="auto" autoActiveFirstOption #tiporetiro="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredTipoRetiro | async"
-                      (onSelectionChange)="selectTipoRetiro($event, option)" [value]="option.codigo">
-                      {{option.codigo + ' - ' + option.nombre}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-                <mat-form-field class="plan-inversion info_field description_encargo">
-                  <input matInput placeholder="Nombre Tipo Retiro" readonly tabindex="-1" [value]="tipoRetiro.nombre">
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-form-field class="plan-inversion info_field titular_info">
-                  <input matInput placeholder="Tipo Mtvo" readonly tabindex="-1" [value]="tipoRetiro.tipoMovimiento?.id">
-                </mat-form-field>
-                <mat-form-field class="plan-inversion info_field description_field">
-                  <input matInput placeholder="Descripción Tipo Mtvo" readonly tabindex="-1" [value]="tipoRetiro.tipoMovimiento?.descripcion">
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-form-field class="campo">
-                  <input class="valor-retiro-input" formControlName="valor" navigation matInput placeholder="Valor Retiro*" usd-only>
-                </mat-form-field>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <mat-form-field class="campo">
-                  <input class="number" matInput navigation placeholder="Nro Volante" formControlName="nroVolante">
-                </mat-form-field>
-              </td>
-              <td colspan="1">
-                <mat-checkbox color="primary" style="font-size: 9px;">
-                  Fondo Externo
-                </mat-checkbox>
-                <mat-form-field class="nit-fex campo">
-                  <input matInput navigation placeholder="Nit Fondo Externo" formControlName="fondoExternoNit">
-                </mat-form-field>
-                <span class="descripcion_campo">{{fondoExterno.nombre}}</span>
-              </td>
-              <td colspan="1">
-                <mat-form-field class="campo">
-                  <input class="text" tab-directive navigation type="text" matInput formControlName="fPagoControl"
-                    [matAutocomplete]="fpagocomplete" [value]="formaPago.id" placeholder="Forma de Pago">
-                  <mat-autocomplete panelWidth="auto" autoActiveFirstOption #fpagocomplete="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredFPago | async"
-                      (onSelectionChange)="selectFPago($event, option)" [value]="option.id">
-                      {{option.id + ' - ' + option.descripcion}}
-                    </mat-option>
-                    <!-- First section-END -->
-                  </mat-autocomplete>
-                </mat-form-field>
-                <mat-form-field class="plan-inversion info_field description_encargo">
-                  <input matInput placeholder="Descripción Forma de Pago" readonly tabindex="-1" [value]="formaPago.descripcion">
-                </mat-form-field>
-              </td> 
-            </tr>
-            <tr>
-              <!--<td colspan="1">
+  <div class="body_page">
+    <div class="title_page">
+      Retiros Parcial de Fondos de Pensiones Voluntarias
+    </div>
+    <div class="forma">
+      <table class="table">
+        <tr>
+          <td colspan="2" class="td_padding">
+            <table class="contenido">
+              <tr>
+                <td width="34%">
+                  <mat-form-field class="campo">
+                    <input class="number" tab-directive type="text" placeholder="oficina*" matInput
+                      formControlName="oficinaCtrl" navigation [matAutocomplete]="auto" [value]="oficina.id">
+                    <mat-error style="border: green !important;" *ngIf="oficinaCtrl.errors?.match">Selecione un valor de
+                      la lista</mat-error>
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                      <mat-option (onSelectionChange)="select($event, option)"
+                        *ngFor="let option of filteredOptions | async" [value]="option.id">
+                        {{option.id}}
+                      </mat-option>
+                      <!-- First section-END -->
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field class="description_encargo info_field " id="top_error">
+                    <input class="text" [value]="oficina.nombre" matInput placeholder="Nombre oficina" />
+                  </mat-form-field>
+                </td>
+                <td width="33%">
+                  <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button color="primary" class="individualRB" value="1" checked>Fecha del Fondo
+                    </mat-radio-button>
+                    <mat-radio-button color="primary" class="individualRB" value="2">Día Siguiente</mat-radio-button>
+                    <mat-radio-button color="primary" class="individualRB" value="3">Fecha Futura</mat-radio-button>
+                  </mat-radio-group>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <input type="date" matInput placeholder="Fecha" [value]="fecha |date:'yyyy-MM-dd'">
+                  </mat-form-field>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="td_padding">
+            <h1 class="titulo_bloque">Identificación de la operación</h1>
+            <table class="contenido">
+              <tr>
+                <td class="td_operacion" width="34%">
+                  <mat-form-field class="titular_info">
+                    <input class="number" tab-directive navigation type="text" placeholder="Encargo*" matInput
+                      formControlName="encargosCtrl" [matAutocomplete]="encargocomplete" [value]="encargo.plan">
+                    <mat-autocomplete panelWidth="auto" autoActiveFirstOption #encargocomplete="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredEncargos | async"
+                        (onSelectionChange)="selectEncargo($event, option)" [value]="option.plan">
+                        {{option.plan}}
+                      </mat-option>
+                      <!-- First section-END -->
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field class="verification">
+                    <input matInput navigation formControlName="codigoVerificacion">
+                  </mat-form-field>
+                  <mat-form-field class="plan-inversion info_field description_encargo" id="top_error">
+                    <input matInput placeholder="Descripción Encargo" readonly tabindex="-1" [value]="encargo.persona">
+                  </mat-form-field>
+                </td>
+                <td class="td_operacion" width="33%">
+                  <mat-form-field class="info_field titular_info">
+                    <input matInput readonly tabindex="-1" [value]="encargo.identificacion" placeholder="Titular">
+                  </mat-form-field>
+                  <mat-form-field class="plan-inversion info_field description_field">
+                    <input matInput placeholder="Nombre Titular" readonly tabindex="-1" [value]="encargo.nombre">
+                  </mat-form-field>
+                </td>
+                <td class="td_operacion" width="33%">
+                  <mat-form-field class="info_field campo">
+                    <input matInput readonly tabindex="-1" [value]="encargo.codigoPlanInversion"
+                      placeholder="Plan de Inversión">
+                  </mat-form-field>
+                  <mat-form-field class="plan-inversion info_field description_encargo">
+                    <input matInput placeholder="Nombre Plan Inversión" readonly tabindex="-1"
+                      [value]="encargo.nombrePlanInversion">
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <mat-form-field class="campo">
+                    <input class="text" tab-directive navigation type="text" placeholder="Tipo de Retiro" matInput
+                      formControlName="tRetiroControl" [matAutocomplete]="tiporetiro" [value]="tipoRetiro.codigo">
+                    <mat-autocomplete panelWidth="auto" autoActiveFirstOption #tiporetiro="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredTipoRetiro | async"
+                        (onSelectionChange)="selectTipoRetiro($event, option)" [value]="option.codigo">
+                        {{option.codigo + ' - ' + option.nombre}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field class="plan-inversion info_field description_encargo">
+                    <input matInput placeholder="Nombre Tipo Retiro" readonly tabindex="-1" [value]="tipoRetiro.nombre">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field class="plan-inversion info_field titular_info">
+                    <input matInput placeholder="Tipo Mtvo" readonly tabindex="-1"
+                      [value]="tipoRetiro.tipoMovimiento?.id">
+                  </mat-form-field>
+                  <mat-form-field class="plan-inversion info_field description_field">
+                    <input matInput placeholder="Descripción Tipo Mtvo" readonly tabindex="-1"
+                      [value]="tipoRetiro.tipoMovimiento?.descripcion">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field class="campo">
+                    <input class="valor-retiro-input" formControlName="valor" navigation matInput
+                      placeholder="Valor Retiro*" usd-only>
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <mat-form-field class="campo">
+                    <input class="number" matInput navigation placeholder="Nro Volante" formControlName="nroVolante">
+                  </mat-form-field>
+                </td>
+                <td colspan="1">
+                  <mat-checkbox color="primary" style="font-size: 9px;">
+                    Fondo Externo
+                  </mat-checkbox>
+                  <mat-form-field class="nit-fex campo">
+                    <input matInput navigation placeholder="Nit Fondo Externo" formControlName="fondoExternoNit">
+                  </mat-form-field>
+                  <span class="descripcion_campo">{{fondoExterno.nombre}}</span>
+                </td>
+                <td colspan="1">
+                  <mat-form-field class="campo">
+                    <input class="text" tab-directive navigation type="text" matInput formControlName="fPagoControl"
+                      [matAutocomplete]="fpagocomplete" [value]="formaPago.id" placeholder="Forma de Pago">
+                    <mat-autocomplete panelWidth="auto" autoActiveFirstOption #fpagocomplete="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredFPago | async"
+                        (onSelectionChange)="selectFPago($event, option)" [value]="option.id">
+                        {{option.id + ' - ' + option.descripcion}}
+                      </mat-option>
+                      <!-- First section-END -->
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field class="plan-inversion info_field description_encargo">
+                    <input matInput placeholder="Descripción Forma de Pago" readonly tabindex="-1"
+                      [value]="formaPago.descripcion">
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <!--<td colspan="1">
                 <mat-form-field class="campo">
                   <input class="text" tab-directive navigation type="text" matInput formControlName="fPagoControl"
                     [matAutocomplete]="fpagocomplete" [value]="formaPago.id" placeholder="Forma de Pago">
@@ -163,188 +184,186 @@
                   <input matInput placeholder="Descripción Forma de Pago" readonly tabindex="-1" [value]="formaPago.descripcion">
                 </mat-form-field>
               </td> -->
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" class="td_padding">
-          <h1 class="titulo_bloque">Saldo del Encargo</h1>
-          <div class="saldos">
-            <mat-form-field class="info_field description_field center">
-              <input readonly tabindex="-1" tab-directive type="text" placeholder="Saldo total" matInput
-                [value]="encargo.saldo.total | currency">
-            </mat-form-field>
-            <mat-form-field class="info_field description_field center">
-              <input readonly tabindex="-1" tab-directive type="text" placeholder="Saldo en Canje" matInput
-                [value]="encargo.saldo.enCanje | currency">
-            </mat-form-field>
-            <mat-form-field class="info_field description_field center">
-              <input readonly tabindex="-1" tab-directive type="text" placeholder="Aportes sin Historia" matInput
-                [value]="encargo.saldo.aportesSinHistoria | currency">
-            </mat-form-field>
-            <mat-form-field class="info_field description_field center">
-              <input readonly tabindex="-1" tab-directive type="text" placeholder="Disponible Portafolio Estable" matInput
-                [value]="encargo.saldo.disponiblePortafolioEstable | currency">
-            </mat-form-field>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" class="td_padding">
-          <h1 class="titulo_bloque">Informaci&oacute;n Subcuentas</h1>
-          <table class="contenido">
-            <thead class="center blue-header">
-              <th>C&oacute;digo</th>
-              <th>Descripci&oacute;n</th>
-              <th>Permite Retiros</th>
-              <th>Saldo Total</th>
-              <th>Saldo Canje</th>
-              <th>Aportes Sin Historia</th>
-              <th>Disponible Portafolio Estable</th>
-              <th>Disponible Consolidado</th>
-              <th>Valor a Retirar</th>
-            </thead>
-            <tr *ngFor="let subcuenta of subcuentas; let i=index" class="number">
-              <td>{{subcuenta.codigo}}</td>
-              <td>{{subcuenta.descripcion}}</td>
-              <td>{{subcuenta.permiteRetiros}}</td>
-              <td>{{subcuenta.saldoTotal | currency}}</td>
-              <td>{{subcuenta.saldoCanje | currency}}</td>
-              <td>{{subcuenta.aportesSinHistoria | currency}}</td>
-              <td>{{subcuenta.disponiblePortafolioEstable | currency}}</td>
-              <td>{{subcuenta.disponibleConsolidado | currency}}</td>
-              <td [formGroup]="sa.controls[i]">
-                <mat-form-field class="campo">
-                  <input class="number" type="text" navigation matInput formControlName="value" usd-only>
-                </mat-form-field>
-              </td>
-            </tr>
-            <tr class="number">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>{{'2292877.93' | currency}}</td>
-              <td>{{'0' | currency}}</td>
-              <td>{{'0' | currency}}</td>
-              <td>{{'2292877.93' | currency}}</td>
-              <td>{{'0' | currency}}</td>
-              <td>{{valorARetirar() | currency}}</td>
-            </tr>
-            <tr style="height: 35px;">
-              <td colspan="7"></td>
-              <td class="number blue-header">Valor Restante</td>
-              <td class="number">{{valorRestante() | currency}}</td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-
-      <tr>
-        <td colspan="2" class="td_padding">
-          <h1 class="titulo_bloque">Beneficiario del Giro</h1>
-          <table class="contenido">
-            <tr>
-              <td width="34%">
-                <mat-form-field class="campo">
-                  <input tab-directive navigation type="text" placeholder="Identificación" matInput
-                    formControlName="terceroControl" [matAutocomplete]="tercerocomplete"
-                    [value]="beneficiario.identificacion">
-                  <mat-autocomplete panelWidth="auto" autoActiveFirstOption #tercerocomplete="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredTerceros | async"
-                      (onSelectionChange)="selectTercero($event, option)" [value]="option.identificacion">
-                      {{option.identificacion}}
-                    </mat-option>
-                    <!-- First section-END -->
-                  </mat-autocomplete>
-                </mat-form-field>
-                <mat-form-field class="info_field campo">
-                  <input readonly tabindex="-1" type="text" placeholder="Tp Id" matInput [value]="beneficiario.tipoId">
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-form-field class="info_field description_encargo">
-                  <input readonly tabindex="-1" type="text" placeholder="Descripción" matInput [value]="beneficiario.descripcion">
-                </mat-form-field>
-                <mat-form-field class="verification-digit info_field">
-                  <input readonly tabindex="-1" type="text" placeholder="Digito" matInput [value]="beneficiario.digito">
-                </mat-form-field>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" class="td_padding">
-          <h1 class="titulo_bloque">Cuenta Bancaria Pagadora</h1>
-          <table class="contenido">
-            <tr>
-              <td width="34%">
-                <mat-form-field class="campo">
-                  <input tab-directive navigation type="text" matInput formControlName="cPagadoraControl"
-                    [matAutocomplete]="cpagadoracomplete" [value]="cuenta.numero" placeholder="Nro Cuenta">
-                  <mat-autocomplete panelWidth="auto" autoActiveFirstOption #cpagadoracomplete="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredCPagadoras | async"
-                      (onSelectionChange)="selectCPagadora($event, option)" [value]="option.numero">
-                      {{option.numero}}
-                    </mat-option>
-                    <!-- First section-END -->
-                  </mat-autocomplete>
-                </mat-form-field>
-                <mat-form-field class="info_field campo">
-                  <input readonly tabindex="-1" placeholder="Banco" type="text" matInput [value]="cuenta.codigoBanco">
-                </mat-form-field>
-              </td>
-              <td width="34%">
-                <mat-form-field class="info_field description_encargo">
-                  <input readonly tabindex="-1" type="text" matInput [value]="cuenta.nombreBanco" placeholder="Nombre Banco">
-                </mat-form-field>
-                <mat-form-field class="info_field campo">
-                  <input readonly tabindex="-1" type="text" matInput placeholder="Tipo Cuenta" [value]="cuenta.tipo">
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-form-field class="info_field campo">
-                  <input placeholder="Cheque" type="text" matInput [value]="nroCheque">
-                </mat-form-field>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-          <button type="button" mat-flat-button  (click)="aplicar()">Aplicar</button>&nbsp;
-          <!--<button mat-flat-button color="primary" (click)="openDialog()">Ver Aportes Afectados</button>&nbsp;-->
-          <!--<button mat-flat-button color="primary" (click)="openDialogManual()">Selección Manual</button>-->
-          <button type="button" mat-flat-button  (click)="limpiar()">Limpiar</button>
-      </tr>
-      <tr *ngIf="showResumen">
-        <td colspan="2">
-          <h1>Resumen Operación</h1>
-          <div class="contenido">
-            <table mat-table [dataSource]="valoresOperacion" class="resumen">
-              <!-- Name Column -->
-              <ng-container matColumnDef="Nombre">
-                <th mat-header-cell *matHeaderCellDef class="blue-header"> Nombre </th>
-                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-                <td mat-footer-cell *matFooterCellDef> Total </td>
-              </ng-container>
-
-              <!-- Weight Column -->
-              <ng-container matColumnDef="Valor">
-                <th mat-header-cell *matHeaderCellDef class="blue-header"> Valor </th>
-                <td mat-cell *matCellDef="let element" class="number"> {{element.valor | currency}} </td>
-                <td mat-footer-cell *matFooterCellDef class="number"> {{getTotalCost() | currency}} </td>
-              </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+              </tr>
             </table>
-          </div>
-        </td>
-      </tr>
-    </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="td_padding">
+            <h1 class="titulo_bloque">Saldo del Encargo</h1>
+            <div class="saldos">
+              <mat-form-field class="info_field description_field center">
+                <input readonly tabindex="-1" tab-directive type="text" placeholder="Saldo total" matInput
+                  [value]="encargo.saldo.total | currency">
+              </mat-form-field>
+              <mat-form-field class="info_field description_field center">
+                <input readonly tabindex="-1" tab-directive type="text" placeholder="Saldo en Canje" matInput
+                  [value]="encargo.saldo.enCanje | currency">
+              </mat-form-field>
+              <mat-form-field class="info_field description_field center">
+                <input readonly tabindex="-1" tab-directive type="text" placeholder="Aportes sin Historia" matInput
+                  [value]="encargo.saldo.aportesSinHistoria | currency">
+              </mat-form-field>
+              <mat-form-field class="info_field description_field center">
+                <input readonly tabindex="-1" tab-directive type="text" placeholder="Disponible Portafolio Estable"
+                  matInput [value]="encargo.saldo.disponiblePortafolioEstable | currency">
+              </mat-form-field>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="td_padding">
+            <h1 class="titulo_bloque">Informaci&oacute;n Subcuentas</h1>
+            <table class="contenido">
+              <thead class="center blue-header">
+                <th>C&oacute;digo</th>
+                <th>Descripci&oacute;n</th>
+                <th>Permite Retiros</th>
+                <th>Saldo Total</th>
+                <th>Saldo Canje</th>
+                <th>Aportes Sin Historia</th>
+                <th>Disponible Portafolio Estable</th>
+                <th>Disponible Consolidado</th>
+                <th>Valor a Retirar</th>
+              </thead>
+              <tr *ngFor="let subcuenta of subcuentas; let i=index" class="number">
+                <td>{{subcuenta.codigo}}</td>
+                <td>{{subcuenta.descripcion}}</td>
+                <td>{{subcuenta.permiteRetiros}}</td>
+                <td>{{subcuenta.saldoTotal | currency}}</td>
+                <td>{{subcuenta.saldoCanje | currency}}</td>
+                <td>{{subcuenta.aportesSinHistoria | currency}}</td>
+                <td>{{subcuenta.disponiblePortafolioEstable | currency}}</td>
+                <td>{{subcuenta.disponibleConsolidado | currency}}</td>
+                <td [formGroup]="sa.controls[i]">
+                  <mat-form-field class="campo">
+                    <input class="number" type="text" navigation matInput formControlName="value" usd-only>
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr class="number">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{'2292877.93' | currency}}</td>
+                <td>{{'0' | currency}}</td>
+                <td>{{'0' | currency}}</td>
+                <td>{{'2292877.93' | currency}}</td>
+                <td>{{'0' | currency}}</td>
+                <td>{{valorARetirar() | currency}}</td>
+              </tr>
+              <tr style="height: 35px;">
+                <td colspan="7"></td>
+                <td class="number blue-header">Valor Restante</td>
+                <td class="number">{{valorRestante() | currency}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2" class="td_padding">
+            <h1 class="titulo_bloque">Beneficiario del Giro</h1>
+            <table class="contenido">
+              <tr>
+                <td width="34%">
+                  <mat-form-field class="campo">
+                    <input tab-directive navigation type="text" placeholder="Identificación" matInput
+                      formControlName="terceroControl" [matAutocomplete]="tercerocomplete"
+                      [value]="beneficiario.identificacion">
+                    <mat-autocomplete panelWidth="auto" autoActiveFirstOption #tercerocomplete="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredTerceros | async"
+                        (onSelectionChange)="selectTercero($event, option)" [value]="option.identificacion">
+                        {{option.identificacion}}
+                      </mat-option>
+                      <!-- First section-END -->
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field class="info_field campo">
+                    <input readonly tabindex="-1" type="text" placeholder="Tp Id" matInput
+                      [value]="beneficiario.tipoId">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field class="info_field description_encargo">
+                    <input readonly tabindex="-1" type="text" placeholder="Descripción" matInput
+                      [value]="beneficiario.descripcion">
+                  </mat-form-field>
+                  <mat-form-field class="verification-digit info_field">
+                    <input readonly tabindex="-1" type="text" placeholder="Digito" matInput
+                      [value]="beneficiario.digito">
+                  </mat-form-field>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="td_padding">
+            <h1 class="titulo_bloque">Cuenta Bancaria Pagadora</h1>
+            <table class="contenido">
+              <tr>
+                <td width="34%">
+                  <mat-form-field class="campo">
+                    <input tab-directive navigation type="text" matInput formControlName="cPagadoraControl"
+                      [matAutocomplete]="cpagadoracomplete" [value]="cuenta.numero" placeholder="Nro Cuenta">
+                    <mat-autocomplete panelWidth="auto" autoActiveFirstOption #cpagadoracomplete="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredCPagadoras | async"
+                        (onSelectionChange)="selectCPagadora($event, option)" [value]="option.numero">
+                        {{option.numero}}
+                      </mat-option>
+                      <!-- First section-END -->
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field class="info_field campo">
+                    <input readonly tabindex="-1" placeholder="Banco" type="text" matInput [value]="cuenta.codigoBanco">
+                  </mat-form-field>
+                </td>
+                <td width="34%">
+                  <mat-form-field class="info_field description_encargo">
+                    <input readonly tabindex="-1" type="text" matInput [value]="cuenta.nombreBanco"
+                      placeholder="Nombre Banco">
+                  </mat-form-field>
+                  <mat-form-field class="info_field campo">
+                    <input readonly tabindex="-1" type="text" matInput placeholder="Tipo Cuenta" [value]="cuenta.tipo">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field class="info_field campo">
+                    <input placeholder="Cheque" type="text" matInput [value]="nroCheque">
+                  </mat-form-field>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr *ngIf="showResumen">
+          <td colspan="2">
+            <h1>Resumen Operación</h1>
+            <div class="contenido">
+              <table mat-table [dataSource]="valoresOperacion" class="resumen">
+                <!-- Name Column -->
+                <ng-container matColumnDef="Nombre">
+                  <th mat-header-cell *matHeaderCellDef class="blue-header"> Nombre </th>
+                  <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                  <td mat-footer-cell *matFooterCellDef> Total </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="Valor">
+                  <th mat-header-cell *matHeaderCellDef class="blue-header"> Valor </th>
+                  <td mat-cell *matCellDef="let element" class="number"> {{element.valor | currency}} </td>
+                  <td mat-footer-cell *matFooterCellDef class="number"> {{getTotalCost() | currency}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
-</div>
 </form>
 <router-outlet></router-outlet>
